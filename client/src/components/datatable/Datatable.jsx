@@ -1,12 +1,11 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
-import { Link } from "react-router-dom";
+import { userColumns } from "../../datatablesource"; // Remove userRows import
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Datatable = () => {
-  // const [data, setData] = useState(userRows);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -22,6 +21,8 @@ const Datatable = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const { userId } = useParams(); // Access the userId parameter from the URL
+
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
@@ -34,7 +35,11 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            {/* Use dynamic Link to navigate to Single component */}
+            <Link
+              to={`/students/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <div className="viewButton">View</div>
             </Link>
             <div
@@ -48,6 +53,7 @@ const Datatable = () => {
       },
     },
   ];
+
   return (
     <div className="datatable">
       <div className="datatableTitle">
