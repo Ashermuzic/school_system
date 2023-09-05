@@ -48,6 +48,70 @@ export const userColumns = [
   // },
 ];
 
+export const TeacherColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img className="cellImg" src={params.row.img} alt="avatar" />
+          {params.row.name}
+        </div>
+      );
+    },
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 230,
+  },
+  {
+    field: "subject",
+    headerName: "Subject",
+    width: 150,
+  },
+  {
+    field: "type",
+    headerName: "Type",
+    width: 150,
+  },
+];
+
+export const AdminColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img className="cellImg" src={params.row.img} alt="avatar" />
+          {params.row.name}
+        </div>
+      );
+    },
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 230,
+  },
+  {
+    field: "phone",
+    headerName: "Phone",
+    width: 150,
+  },
+  {
+    field: "type",
+    headerName: "Type",
+    width: 150,
+  },
+];
+
 //temporary data
 export const userRows = [
   {

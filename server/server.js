@@ -103,6 +103,17 @@ app.get("/getTeacher/:id", (req, res) => {
   });
 });
 
+// =============GET Admin based on ID============
+
+app.get("/getAdmin/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "SELECT * FROM admins WHERE id = ?";
+  con.query(sql, [id], (err, result) => {
+    if (err) return res.json({ Error: "Get Admins error in sql" });
+    return res.json({ Status: "Success", Result: result });
+  });
+});
+
 // =============UPDATE student============
 
 app.put("/updateStudent/:id", (req, res) => {

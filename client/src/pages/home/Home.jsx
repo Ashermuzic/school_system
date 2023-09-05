@@ -39,7 +39,7 @@ const Home = () => {
         <div className="widgets">
           <Widget type="students" amount={studentCount} diff={20} />
           <Widget type="teachers" amount={teacherCount} diff={20} />
-          <Widget type="admin" amount={adminCount} diff={20} />
+          <Widget type="admins" amount={adminCount} diff={20} />
           <Widget type="balance" amount={101} diff={20} />
         </div>
         <div className="charts">

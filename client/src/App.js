@@ -9,7 +9,9 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import TeacherList from "./pages/list/TeacherList";
+import AdminList from "./pages/list/AdminList";
 import SingleTeacher from "./pages/single/SingleTeacher";
+import SingleAdmin from "./pages/single/SingleAdmin";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -32,6 +34,14 @@ function App() {
             <Route path="teachers">
               <Route index element={<TeacherList />} />
               <Route path=":teacherId" element={<SingleTeacher />} />
+              <Route
+                path="new"
+                element={<New inputs={productInputs} title="Add New Product" />}
+              />
+            </Route>
+            <Route path="admins">
+              <Route index element={<AdminList />} />
+              <Route path=":adminId" element={<SingleAdmin />} />
               <Route
                 path="new"
                 element={<New inputs={productInputs} title="Add New Product" />}

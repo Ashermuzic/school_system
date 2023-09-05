@@ -1,6 +1,6 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { TeacherColumns } from "../../datatablesource"; // Remove userRows import
+import { AdminColumns, userColumns } from "../../datatablesource"; // Remove userRows import
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -10,7 +10,7 @@ const TeacherTable = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/getTeachers")
+      .get("http://localhost:8081/getAdmins")
       .then((res) => {
         if (res.data.Status === "Success") {
           setData(res.data.Result);
@@ -21,7 +21,7 @@ const TeacherTable = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const { userId } = useParams(); // Access the userId parameter from the URL
+  const { adminId } = useParams(); // Access the userId parameter from the URL
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -37,17 +37,11 @@ const TeacherTable = () => {
           <div className="cellAction">
             {/* Use dynamic Link to navigate to Single component */}
             <Link
-              to={`/teachers/${params.row.id}`}
+              to={`/admins/${params.row.id}`}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">View</div>
             </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
           </div>
         );
       },
@@ -57,7 +51,7 @@ const TeacherTable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New Teacher
+        View Admins
         <Link to="/students/new" className="link">
           Add New
         </Link>
@@ -65,7 +59,7 @@ const TeacherTable = () => {
       <DataGrid
         className="datagrid"
         rows={data}
-        columns={TeacherColumns.concat(actionColumn)}
+        columns={AdminColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection

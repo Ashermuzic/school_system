@@ -44,7 +44,7 @@ const Widget = ({ type, amount, diff }) => {
         ),
       };
       break;
-    case "admin":
+    case "admins":
       data = {
         title: "Admin",
         link: "See all admins",
