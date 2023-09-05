@@ -4,20 +4,20 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import { Link } from "react-router-dom";
 
-const Widget = ({ type }) => {
+const Widget = ({ type, amount, diff }) => {
   let data;
 
-  //temporary
-  const amount = 100;
-  const diff = 20;
+  // temporary
+  // const amount = 101;
+  // const diff = 20;
 
   switch (type) {
-    case "user":
+    case "students":
       data = {
         title: "Students",
-        isMoney: false,
-        link: "See all users",
+        link: "See all students",
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -29,11 +29,10 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "order":
+    case "teachers":
       data = {
         title: "Teachers",
-        isMoney: false,
-        link: "View all orders",
+        link: "See all teachers",
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -45,11 +44,10 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "earning":
+    case "admin":
       data = {
         title: "Admin",
-        isMoney: true,
-        link: "View net earnings",
+        link: "See all admins",
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -61,7 +59,6 @@ const Widget = ({ type }) => {
     case "balance":
       data = {
         title: "Total",
-        isMoney: true,
         link: "See details",
         icon: (
           <AccountBalanceWalletOutlinedIcon
@@ -78,6 +75,8 @@ const Widget = ({ type }) => {
       break;
   }
 
+  const linkTo = `/${type}`;
+
   return (
     <div className="widget">
       <div className="left">
@@ -85,7 +84,13 @@ const Widget = ({ type }) => {
         <span className="counter">
           {data.isMoney && "$"} {amount}
         </span>
-        <span className="link">{data.link}</span>
+        <Link
+          to={linkTo}
+          style={{ textDecoration: "none", color: "#666" }}
+          className="link"
+        >
+          {data.link}
+        </Link>
       </div>
       <div className="right">
         <div className="percentage positive">

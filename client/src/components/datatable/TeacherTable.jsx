@@ -5,12 +5,12 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Datatable = () => {
+const TeacherTable = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/getStudents")
+      .get("http://localhost:8081/getTeachers")
       .then((res) => {
         if (res.data.Status === "Success") {
           setData(res.data.Result);
@@ -37,7 +37,7 @@ const Datatable = () => {
           <div className="cellAction">
             {/* Use dynamic Link to navigate to Single component */}
             <Link
-              to={`/students/${params.row.id}`}
+              to={`/teachers/${params.row.id}`}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">View</div>
@@ -57,7 +57,7 @@ const Datatable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New Student
+        Add New Teacher
         <Link to="/students/new" className="link">
           Add New
         </Link>
@@ -74,4 +74,4 @@ const Datatable = () => {
   );
 };
 
-export default Datatable;
+export default TeacherTable;

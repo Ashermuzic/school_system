@@ -7,32 +7,30 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const Single = () => {
+const SingleTeacher = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
-    phone: "",
-    age: "",
-    sex: "",
-    grade: "",
     img: "",
+    subject: "",
+    type: "",
   });
 
-  const { studentId } = useParams();
+  const { teacherId } = useParams();
+
+  console.log(teacherId);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8081/getStudent/${studentId}`)
+      .get(`http://localhost:8081/getTeacher/${teacherId}`)
       .then((res) => {
         setData({
           ...data,
           name: res.data.Result[0].name,
           email: res.data.Result[0].email,
-          phone: res.data.Result[0].phone,
-          age: res.data.Result[0].age,
-          sex: res.data.Result[0].sex,
-          grade: res.data.Result[0].grade,
           img: res.data.Result[0].img,
+          subject: res.data.Result[0].subject,
+          type: res.data.Result[0].type,
         });
       })
       .catch((err) => console.log(err));
@@ -56,20 +54,12 @@ const Single = () => {
                   <span className="itemValue">{data.email}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Phone:</span>
-                  <span className="itemValue">{data.phone}</span>
+                  <span className="itemKey">Subject:</span>
+                  <span className="itemValue">{data.subject}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Age:</span>
-                  <span className="itemValue">{data.age}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Sex:</span>
-                  <span className="itemValue">{data.sex}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Grade:</span>
-                  <span className="itemValue">{data.grade}</span>
+                  <span className="itemKey">Type:</span>
+                  <span className="itemValue">{data.type}</span>
                 </div>
               </div>
             </div>
@@ -87,4 +77,4 @@ const Single = () => {
   );
 };
 
-export default Single;
+export default SingleTeacher;

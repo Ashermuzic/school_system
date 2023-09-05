@@ -168,7 +168,7 @@ app.get("/dashboard", verifyUser, (req, res) => {
 // =============Admin count============
 
 app.get("/adminCount", (req, res) => {
-  const sql = "SELECT count(id) as admin FROM users";
+  const sql = "SELECT count(id) as admin FROM admins";
   con.query(sql, (err, result) => {
     if (err) return res.json({ Error: "Error in running query" });
     return res.json(result);
@@ -177,8 +177,8 @@ app.get("/adminCount", (req, res) => {
 
 // =============Employee count============
 
-app.get("/employeeCount", (req, res) => {
-  const sql = "SELECT count(id) as employee FROM employee";
+app.get("/studentCount", (req, res) => {
+  const sql = "SELECT count(id) as student FROM students";
   con.query(sql, (err, result) => {
     if (err) return res.json({ Error: "Error in running query" });
     return res.json(result);
@@ -188,7 +188,7 @@ app.get("/employeeCount", (req, res) => {
 // =============Employee count============
 
 app.get("/teacherCount", (req, res) => {
-  const sql = "SELECT count(id) as teacher FROM teacher";
+  const sql = "SELECT count(id) as teacher FROM teachers";
   con.query(sql, (err, result) => {
     if (err) return res.json({ Error: "Error in running query" });
     return res.json(result);
