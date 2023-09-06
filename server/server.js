@@ -21,6 +21,7 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public")); //the folder
 
 const con = mysql.createConnection({
@@ -120,12 +121,63 @@ app.get("/getAdmin/:id", (req, res) => {
 
 // =============UPDATE student============
 
+// app.put("/updateStudent/:id", (req, res) => {
+//   const id = req.params.id;
+//   const sql = "UPDATE students set name = ? WHERE id = ?";
+//   con.query(sql, [req.body.name, id], (err, result) => {
+//     if (err) return res.json({ Error: "update student error in sql" });
+//     return res.json({ Status: "Success" });
+//   });
+// });
+
 app.put("/updateStudent/:id", (req, res) => {
   const id = req.params.id;
-  const sql = "UPDATE students set name = ? WHERE id = ?";
-  con.query(sql, [req.body.name, id], (err, result) => {
-    if (err) return res.json({ Error: "update student error in sql" });
-    return res.json({ Status: "Success" });
+  console.log(`the student id is = ${id}`);
+  const updatedData = req.body; // Get all updated data from the request body
+
+  console.log(updatedData);
+  // Define the SQL query to update all fields of the student's record
+  const sql = `
+    UPDATE students 
+    SET 
+      name = ?,
+      email = ?,
+      phone = ?,
+      age = ?,
+      sex = ?,
+      grade = ?,
+      img = ?
+    WHERE id = ?
+  `;
+
+  const values = [
+    updatedData.name,
+    updatedData.email,
+    updatedData.phone,
+    updatedData.age,
+    updatedData.sex,
+    updatedData.grade,
+    updatedData.img,
+    id,
+  ];
+
+  // Execute the SQL query with the updated data and student id
+  con.query(sql, values, (err, result) => {
+    if (err) {
+      // Handle any errors that occur during the database query
+      return res
+        .status(500)
+        .json({ error: "Error updating student record in the database" });
+    }
+
+    // Check if any rows were affected by the update
+    if (result.affectedRows === 0) {
+      // If no rows were affected, it means the student with the given id was not found
+      return res.status(404).json({ error: "Student not found" });
+    }
+
+    // If the update was successful and at least one row was affected, return a success response
+    return res.status(200).json({ status: "Success" });
   });
 });
 

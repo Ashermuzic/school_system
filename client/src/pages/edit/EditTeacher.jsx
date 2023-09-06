@@ -1,38 +1,34 @@
-import "./single.scss";
+import "./edit.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const Single = () => {
+const EditTeacher = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
-    phone: "",
-    age: "",
-    sex: "",
-    grade: "",
     img: "",
+    subject: "",
+    type: "",
   });
 
-  const { studentId } = useParams();
+  const { teacherId } = useParams();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8081/getStudent/${studentId}`)
+      .get(`http://localhost:8081/getTeacher/${teacherId}`)
       .then((res) => {
         setData({
           ...data,
           name: res.data.Result[0].name,
           email: res.data.Result[0].email,
-          phone: res.data.Result[0].phone,
-          age: res.data.Result[0].age,
-          sex: res.data.Result[0].sex,
-          grade: res.data.Result[0].grade,
           img: res.data.Result[0].img,
+          subject: res.data.Result[0].subject,
+          type: res.data.Result[0].type,
         });
       })
       .catch((err) => console.log(err));
@@ -45,17 +41,10 @@ const Single = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            {/* <div className="editButton">Edit</div> */}
-            <Link to={`/students/edit/${studentId}`} className="editButton">
-              Edit
-            </Link>
+            <div className="editButton">Edit</div>
             <h1 className="title">Information</h1>
             <div className="item">
-              <img
-                src={`http://localhost:8081/images/${data.img}`}
-                alt=""
-                className="itemImg"
-              />
+              <img src={data.img} alt="" className="itemImg" />
               <div className="details">
                 <h1 className="itemTitle">{data.name}</h1>
                 <div className="detailItem">
@@ -63,20 +52,12 @@ const Single = () => {
                   <span className="itemValue">{data.email}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Phone:</span>
-                  <span className="itemValue">{data.phone}</span>
+                  <span className="itemKey">Subject:</span>
+                  <span className="itemValue">{data.subject}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Age:</span>
-                  <span className="itemValue">{data.age}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Sex:</span>
-                  <span className="itemValue">{data.sex}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Grade:</span>
-                  <span className="itemValue">{data.grade}</span>
+                  <span className="itemKey">Type:</span>
+                  <span className="itemValue">{data.type}</span>
                 </div>
               </div>
             </div>
@@ -94,4 +75,4 @@ const Single = () => {
   );
 };
 
-export default Single;
+export default EditTeacher;
