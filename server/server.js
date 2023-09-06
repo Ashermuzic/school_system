@@ -8,6 +8,10 @@ import multer from "multer";
 import path from "path";
 
 const app = express();
+
+// Serve static files from the 'public' directory
+app.use(express.static("public"));
+
 app.use(
   cors({
     origin: ["http://localhost:3000"],
@@ -316,9 +320,11 @@ app.get("/logout", (req, res) => {
 //   });
 // });
 
-app.post("/createStudent", upload.single("image"), (req, res) => {
+app.post("/createStudent", upload.single("img"), (req, res) => {
   const sql =
-    "INSERT INTO students (`name`,`email`,`phone`,`age`,`sex`,`grade`) VALUES (?)";
+    "INSERT INTO students (`name`,`email`,`phone`,`age`,`sex`,`grade`,`img`) VALUES (?)";
+
+  let imageFilename = req.file ? req.file.filename : "no_image_available.jpg";
 
   const values = [
     req.body.name,
@@ -327,6 +333,7 @@ app.post("/createStudent", upload.single("image"), (req, res) => {
     req.body.age,
     req.body.sex,
     req.body.grade,
+    imageFilename,
   ];
 
   con.query(sql, [values], (err, result) => {

@@ -7,7 +7,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const NewStudent = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,7 +14,10 @@ const NewStudent = ({ inputs, title }) => {
     age: "",
     sex: "",
     grade: "",
+    img: null, // Use null for the initial value of the image
   });
+
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +27,13 @@ const NewStudent = ({ inputs, title }) => {
     });
   };
 
-  const navigate = useNavigate();
+  const handleImageChange = (e) => {
+    const imageFile = e.target.files[0];
+    setFormData({
+      ...formData,
+      img: imageFile,
+    });
+  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +45,7 @@ const NewStudent = ({ inputs, title }) => {
     formdata.append("age", formData.age);
     formdata.append("sex", formData.sex);
     formdata.append("grade", formData.grade);
+    formdata.append("img", formData.img); // Append the image file
 
     axios
       .post("http://localhost:8081/createStudent", formdata)
@@ -45,15 +54,11 @@ const NewStudent = ({ inputs, title }) => {
       })
       .catch((err) => {
         if (err.response) {
-          // The request was made and the server responded with a status code
-          console.error("Response data:", err.response.data);
-          console.error("Response status:", err.response.status);
+          // Handle errors
         } else if (err.request) {
-          // The request was made but no response was received
-          console.error("Request:", err.request);
+          // Handle errors
         } else {
-          // Something happened in setting up the request
-          console.error("Error:", err.message);
+          // Handle errors
         }
       });
   };
@@ -70,8 +75,8 @@ const NewStudent = ({ inputs, title }) => {
           <div className="left">
             <img
               src={
-                file
-                  ? URL.createObjectURL(file)
+                formData.img
+                  ? URL.createObjectURL(formData.img)
                   : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
               }
               alt=""
@@ -79,26 +84,26 @@ const NewStudent = ({ inputs, title }) => {
           </div>
           <div className="right">
             <form onSubmit={handleFormSubmit}>
-              {/* <div className="formInput">
+              <div className="formInput">
                 <label htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
                 <input
                   type="file"
                   id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
+                  onChange={handleImageChange} // Use a separate handler for image input
                   style={{ display: "none" }}
                 />
-              </div> */}
+              </div>
 
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
                   <input
                     type={input.type}
-                    name={input.name} // Set the name attribute for each input field
+                    name={input.name}
                     placeholder={input.placeholder}
-                    onChange={handleInputChange} // Use a common handler for input changes
+                    onChange={handleInputChange}
                   />
                 </div>
               ))}

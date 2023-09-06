@@ -48,7 +48,11 @@ const Single = () => {
             <div className="editButton">Edit</div>
             <h1 className="title">Information</h1>
             <div className="item">
-              <img src={data.img} alt="" className="itemImg" />
+              <img
+                src={`http://localhost:8081/images/${data.img}`}
+                alt=""
+                className="itemImg"
+              />
               <div className="details">
                 <h1 className="itemTitle">{data.name}</h1>
                 <div className="detailItem">

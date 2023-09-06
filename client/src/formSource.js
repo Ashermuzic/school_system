@@ -41,23 +41,6 @@ export const userInputs = [
     placeholder: "+1 234 567 89",
     name: "phone",
   },
-  //   {
-  //     id: 5,
-  //     label: "Password",
-  //     type: "password",
-  //   },
-  //   {
-  //     id: 6,
-  //     label: "Address",
-  //     type: "text",
-  //     placeholder: "Elton St. 216 NewYork",
-  //   },
-  //   {
-  //     id: 7,
-  //     label: "Country",
-  //     type: "text",
-  //     placeholder: "USA",
-  //   },
 ];
 
 export const productInputs = [
