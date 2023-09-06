@@ -292,26 +292,27 @@ app.get("/logout", (req, res) => {
   return res.json({ Status: "Success" });
 });
 
-// =============CREATE============
+// =============CREATE Student============
 
-app.post("/create", upload.single("image"), (req, res) => {
+app.post("/createStudent", upload.single("image"), (req, res) => {
   const sql =
-    "INSERT INTO employee (`name`,`email`,`password`,`salary`,`address`,`image`) VALUES (?)";
-  bcrypt.hash(req.body.password.toString(), 10, (err, hash) => {
-    if (err) return res.json({ Error: "Error in hashing password" });
-    const values = [
-      req.body.name,
-      req.body.email,
-      hash,
-      req.body.salary,
-      req.body.address,
-      req.file.filename,
-    ];
+    "INSERT INTO students (`name`,`email`,`age`,`sex`,`grade`,`phone`, `img`) VALUES (?)";
 
-    con.query(sql, [values], (err, result) => {
-      if (err) return res.json({ Error: "Inside signup query" });
-      return res.json({ Status: "Success" });
-    });
+  let imageFilename = req.file ? req.file.filename : "no_image_available.jpg"; // Set a default image filename if no image is provided
+
+  const values = [
+    req.body.name,
+    req.body.email,
+    req.body.age,
+    req.body.sex,
+    req.body.grade,
+    req.body.phone,
+    imageFilename,
+  ];
+
+  con.query(sql, [values], (err, result) => {
+    if (err) return res.json({ Error: "Error Inside signup query" });
+    return res.json({ Status: "Success" });
   });
 });
 

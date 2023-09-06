@@ -50,12 +50,7 @@ const TeacherTable = () => {
 
   return (
     <div className="datatable">
-      <div className="datatableTitle">
-        View Admins
-        <Link to="/students/new" className="link">
-          Add New
-        </Link>
-      </div>
+      <div className="datatableTitle">View Admins</div>
       <DataGrid
         className="datagrid"
         rows={data}

@@ -57,9 +57,9 @@ const TeacherTable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New Teacher
+        View Teacher
         <Link to="/students/new" className="link">
-          Add New
+          Add Teacher
         </Link>
       </div>
       <DataGrid
