@@ -294,20 +294,39 @@ app.get("/logout", (req, res) => {
 
 // =============CREATE Student============
 
+// app.post("/createStudent", upload.single("image"), (req, res) => {
+//   const sql =
+//     "INSERT INTO students (`name`,`email`,`age`,`sex`,`grade`,`phone`, `img`) VALUES (?)";
+
+//   let imageFilename = req.file ? req.file.filename : "no_image_available.jpg"; // Set a default image filename if no image is provided
+
+//   const values = [
+//     req.body.name,
+//     req.body.email,
+//     req.body.age,
+//     req.body.sex,
+//     req.body.grade,
+//     req.body.phone,
+//     imageFilename,
+//   ];
+
+//   con.query(sql, [values], (err, result) => {
+//     if (err) return res.json({ Error: "Error Inside signup query" });
+//     return res.json({ Status: "Success" });
+//   });
+// });
+
 app.post("/createStudent", upload.single("image"), (req, res) => {
   const sql =
-    "INSERT INTO students (`name`,`email`,`age`,`sex`,`grade`,`phone`, `img`) VALUES (?)";
-
-  let imageFilename = req.file ? req.file.filename : "no_image_available.jpg"; // Set a default image filename if no image is provided
+    "INSERT INTO students (`name`,`email`,`phone`,`age`,`sex`,`grade`) VALUES (?)";
 
   const values = [
     req.body.name,
     req.body.email,
+    req.body.phone,
     req.body.age,
     req.body.sex,
     req.body.grade,
-    req.body.phone,
-    imageFilename,
   ];
 
   con.query(sql, [values], (err, result) => {
