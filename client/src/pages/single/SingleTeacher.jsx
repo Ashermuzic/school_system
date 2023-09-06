@@ -5,7 +5,7 @@ import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const SingleTeacher = () => {
   const [data, setData] = useState({
@@ -43,7 +43,9 @@ const SingleTeacher = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <div className="editButton">Edit</div>
+            <Link to={`/teachers/edit/${teacherId}`} className="editButton">
+              Edit
+            </Link>
             <h1 className="title">Information</h1>
             <div className="item">
               <img

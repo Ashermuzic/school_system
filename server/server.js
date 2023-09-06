@@ -123,7 +123,6 @@ app.get("/getAdmin/:id", (req, res) => {
 
 app.put("/updateStudent/:id", (req, res) => {
   const id = req.params.id;
-  console.log(`the student id is = ${id}`);
   const updatedData = req.body; // Get all updated data from the request body
 
   console.log(updatedData);
@@ -176,10 +175,48 @@ app.put("/updateStudent/:id", (req, res) => {
 
 app.put("/updateTeacher/:id", (req, res) => {
   const id = req.params.id;
-  const sql = "UPDATE teacher set subject = ?, type =? WHERE id = ?";
-  con.query(sql, [req.body.subject, req.body.type, id], (err, result) => {
-    if (err) return res.json({ Error: "update teacher error in sql" });
-    return res.json({ Status: "Success" });
+  const updatedData = req.body; // Get all updated data from the request body
+
+  // Define the SQL query to update all fields of the student's record
+  const sql = `
+    UPDATE teachers 
+    SET 
+      name = ?,
+      email = ?,
+      phone = ?,
+      subject = ?,
+      type = ?,
+      img = ?
+    WHERE id = ?
+  `;
+
+  const values = [
+    updatedData.name,
+    updatedData.email,
+    updatedData.phone,
+    updatedData.subject,
+    updatedData.type,
+    updatedData.img,
+    id,
+  ];
+
+  // Execute the SQL query with the updated data and student id
+  con.query(sql, values, (err, result) => {
+    if (err) {
+      // Handle any errors that occur during the database query
+      return res
+        .status(500)
+        .json({ error: "Error updating student record in the database" });
+    }
+
+    // Check if any rows were affected by the update
+    if (result.affectedRows === 0) {
+      // If no rows were affected, it means the student with the given id was not found
+      return res.status(404).json({ error: "Student not found" });
+    }
+
+    // If the update was successful and at least one row was affected, return a success response
+    return res.status(200).json({ status: "Success" });
   });
 });
 

@@ -14,6 +14,7 @@ import AdminList from "./pages/list/AdminList";
 import SingleTeacher from "./pages/single/SingleTeacher";
 import SingleAdmin from "./pages/single/SingleAdmin";
 import EditStudent from "./pages/edit/EditStudent";
+import EditTeacher from "./pages/edit/EditTeacher";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -48,6 +49,15 @@ function App() {
                 path="new"
                 element={
                   <NewTeacher inputs={productInputs} title="Add New Teacher" />
+                }
+              />
+              <Route
+                path="edit/:id"
+                element={
+                  <EditTeacher
+                    inputs={productInputs}
+                    title="Edit The Teacher"
+                  />
                 }
               />
             </Route>
