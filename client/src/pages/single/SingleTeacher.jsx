@@ -11,6 +11,7 @@ const SingleTeacher = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
+    phone: "",
     img: "",
     subject: "",
     type: "",
@@ -26,6 +27,7 @@ const SingleTeacher = () => {
           ...data,
           name: res.data.Result[0].name,
           email: res.data.Result[0].email,
+          phone: res.data.Result[0].phone,
           img: res.data.Result[0].img,
           subject: res.data.Result[0].subject,
           type: res.data.Result[0].type,
@@ -44,12 +46,20 @@ const SingleTeacher = () => {
             <div className="editButton">Edit</div>
             <h1 className="title">Information</h1>
             <div className="item">
-              <img src={data.img} alt="" className="itemImg" />
+              <img
+                src={`http://localhost:8081/images/${data.img}`}
+                alt=""
+                className="itemImg"
+              />
               <div className="details">
                 <h1 className="itemTitle">{data.name}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
                   <span className="itemValue">{data.email}</span>
+                </div>{" "}
+                <div className="detailItem">
+                  <span className="itemKey">Phone:</span>
+                  <span className="itemValue">{data.phone}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Subject:</span>

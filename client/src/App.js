@@ -3,6 +3,7 @@ import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import NewStudent from "./pages/new/NewStudent";
+import NewTeacher from "./pages/new/NewTeacher";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
@@ -46,7 +47,7 @@ function App() {
               <Route
                 path="new"
                 element={
-                  <NewStudent inputs={productInputs} title="Add New Product" />
+                  <NewTeacher inputs={productInputs} title="Add New Teacher" />
                 }
               />
             </Route>

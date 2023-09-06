@@ -121,15 +121,6 @@ app.get("/getAdmin/:id", (req, res) => {
 
 // =============UPDATE student============
 
-// app.put("/updateStudent/:id", (req, res) => {
-//   const id = req.params.id;
-//   const sql = "UPDATE students set name = ? WHERE id = ?";
-//   con.query(sql, [req.body.name, id], (err, result) => {
-//     if (err) return res.json({ Error: "update student error in sql" });
-//     return res.json({ Status: "Success" });
-//   });
-// });
-
 app.put("/updateStudent/:id", (req, res) => {
   const id = req.params.id;
   console.log(`the student id is = ${id}`);
@@ -364,24 +355,25 @@ app.post("/createStudent", upload.single("img"), (req, res) => {
 
 // =============CREATE Teacher============
 
-app.post("/createTeacher", upload.single("image"), (req, res) => {
+app.post("/createTeacher", upload.single("img"), (req, res) => {
   const sql =
-    "INSERT INTO teacher (`name`,`email`,`password`,`subject`,`type`,`image`) VALUES (?)";
-  bcrypt.hash(req.body.password.toString(), 10, (err, hash) => {
-    if (err) return res.json({ Error: "Error in hashing password" });
-    const values = [
-      req.body.name,
-      req.body.email,
-      hash,
-      req.body.subject,
-      req.body.type,
-      req.file.filename,
-    ];
+    "INSERT INTO teachers (`name`,`email`,`phone`,`password`,`subject`,`type`,`img`) VALUES (?)";
 
-    con.query(sql, [values], (err, result) => {
-      if (err) return res.json({ Error: "Inside signup query" });
-      return res.json({ Status: "Success" });
-    });
+  let imageFilename = req.file ? req.file.filename : "no_image_available.png";
+
+  const values = [
+    req.body.name,
+    req.body.email,
+    req.body.phone,
+    req.body.password,
+    req.body.subject,
+    req.body.type,
+    imageFilename,
+  ];
+
+  con.query(sql, [values], (err, result) => {
+    if (err) return res.json({ Error: "Error Inside signup query" });
+    return res.json({ Status: "Success" });
   });
 });
 

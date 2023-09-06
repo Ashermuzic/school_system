@@ -58,7 +58,7 @@ const TeacherTable = () => {
     <div className="datatable">
       <div className="datatableTitle">
         View Teacher
-        <Link to="/students/new" className="link">
+        <Link to="/teachers/new" className="link">
           Add Teacher
         </Link>
       </div>
