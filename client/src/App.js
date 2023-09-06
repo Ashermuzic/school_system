@@ -15,6 +15,7 @@ import SingleTeacher from "./pages/single/SingleTeacher";
 import SingleAdmin from "./pages/single/SingleAdmin";
 import EditStudent from "./pages/edit/EditStudent";
 import EditTeacher from "./pages/edit/EditTeacher";
+import Stats from "./pages/stats/Stats";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -70,6 +71,9 @@ function App() {
                   <NewStudent inputs={productInputs} title="Add New Product" />
                 }
               />
+            </Route>
+            <Route path="stats">
+              <Route index element={<Stats />} />
             </Route>
           </Route>
         </Routes>
