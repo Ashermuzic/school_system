@@ -140,12 +140,12 @@ app.put("/updateTeacher/:id", (req, res) => {
   });
 });
 
-// =============DELETE============
-app.delete("/delete/:id", (req, res) => {
+// =============DELETE Student============
+app.delete("/deleteStudent/:id", (req, res) => {
   const id = req.params.id;
-  const sql = "DELETE FROM employee WHERE id = ?";
+  const sql = "DELETE FROM students WHERE id = ?";
   con.query(sql, [id], (err, result) => {
-    if (err) return res.json({ Error: "delete employee error in sql" });
+    if (err) return res.json({ Error: "delete student error in sql" });
     return res.json({ Status: "Success" });
   });
 });
@@ -190,7 +190,7 @@ app.get("/adminCount", (req, res) => {
   });
 });
 
-// =============Employee count============
+// =============Student count============
 
 app.get("/studentCount", (req, res) => {
   const sql = "SELECT count(id) as student FROM students";
@@ -200,20 +200,10 @@ app.get("/studentCount", (req, res) => {
   });
 });
 
-// =============Employee count============
+// =============teacher count============
 
 app.get("/teacherCount", (req, res) => {
   const sql = "SELECT count(id) as teacher FROM teachers";
-  con.query(sql, (err, result) => {
-    if (err) return res.json({ Error: "Error in running query" });
-    return res.json(result);
-  });
-});
-
-// =============Sum of salary============
-
-app.get("/salary", (req, res) => {
-  const sql = "SELECT sum(salary) as sumOfSalary FROM employee";
   con.query(sql, (err, result) => {
     if (err) return res.json({ Error: "Error in running query" });
     return res.json(result);
@@ -298,33 +288,11 @@ app.get("/logout", (req, res) => {
 
 // =============CREATE Student============
 
-// app.post("/createStudent", upload.single("image"), (req, res) => {
-//   const sql =
-//     "INSERT INTO students (`name`,`email`,`age`,`sex`,`grade`,`phone`, `img`) VALUES (?)";
-
-//   let imageFilename = req.file ? req.file.filename : "no_image_available.jpg"; // Set a default image filename if no image is provided
-
-//   const values = [
-//     req.body.name,
-//     req.body.email,
-//     req.body.age,
-//     req.body.sex,
-//     req.body.grade,
-//     req.body.phone,
-//     imageFilename,
-//   ];
-
-//   con.query(sql, [values], (err, result) => {
-//     if (err) return res.json({ Error: "Error Inside signup query" });
-//     return res.json({ Status: "Success" });
-//   });
-// });
-
 app.post("/createStudent", upload.single("img"), (req, res) => {
   const sql =
     "INSERT INTO students (`name`,`email`,`phone`,`age`,`sex`,`grade`,`img`) VALUES (?)";
 
-  let imageFilename = req.file ? req.file.filename : "no_image_available.jpg";
+  let imageFilename = req.file ? req.file.filename : "no_image_available.png";
 
   const values = [
     req.body.name,

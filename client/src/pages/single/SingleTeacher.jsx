@@ -18,8 +18,6 @@ const SingleTeacher = () => {
 
   const { teacherId } = useParams();
 
-  console.log(teacherId);
-
   useEffect(() => {
     axios
       .get(`http://localhost:8081/getTeacher/${teacherId}`)
