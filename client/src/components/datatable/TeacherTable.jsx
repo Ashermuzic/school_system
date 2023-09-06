@@ -24,7 +24,16 @@ const TeacherTable = () => {
   const { userId } = useParams(); // Access the userId parameter from the URL
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    axios
+      .delete("http://localhost:8081/deleteTeacher/" + id)
+      .then((res) => {
+        if (res.data.Status === "Success") {
+          window.location.reload(true);
+        } else {
+          alert("Error");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const actionColumn = [

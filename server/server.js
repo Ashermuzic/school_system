@@ -196,7 +196,7 @@ app.delete("/deleteStudent/:id", (req, res) => {
 // =============DELETE Teacher============
 app.delete("/deleteTeacher/:id", (req, res) => {
   const id = req.params.id;
-  const sql = "DELETE FROM teacher WHERE id = ?";
+  const sql = "DELETE FROM teachers WHERE id = ?";
   con.query(sql, [id], (err, result) => {
     if (err) return res.json({ Error: "delete teacher error in sql" });
     return res.json({ Status: "Success" });
