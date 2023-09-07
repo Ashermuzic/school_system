@@ -16,6 +16,7 @@ import SingleAdmin from "./pages/single/SingleAdmin";
 import EditStudent from "./pages/edit/EditStudent";
 import EditTeacher from "./pages/edit/EditTeacher";
 import Stats from "./pages/stats/Stats";
+import Write from "./pages/write/Write";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -74,6 +75,9 @@ function App() {
             </Route>
             <Route path="stats">
               <Route index element={<Stats />} />
+            </Route>
+            <Route path="write">
+              <Route index element={<Write />} />
             </Route>
           </Route>
         </Routes>
