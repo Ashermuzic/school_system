@@ -1,3 +1,200 @@
-.login{
-    
+.mainLogin {
+  //   background: red;
+  height: 100vh;
+  background: #b6c5ff23;
+  background-image: url(../../assets/Sprinkle_03.svg);
+  .container {
+    padding: 0px 70px;
+    .navbar {
+      //   background: red;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0px;
+      position: relative;
+      .login {
+        button {
+          padding: 7px 25px;
+          background: #394dffe8;
+          border: none;
+          color: #fff;
+          box-shadow: 1px 1px 3px #777;
+        }
+        :active {
+          transform: translateY(1px);
+          box-shadow: 1px 1px 2px #777;
+        }
+      }
+      .loginForm {
+        background: #9aa0d1f1;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        width: 230px;
+        height: 300px;
+        right: 0;
+        top: 70px;
+        overflow: hidden;
+        transition: all 0.5s;
+        box-shadow: 0px 5px 20px 2px #777777;
+        ::before {
+          position: absolute;
+          content: "";
+          background: rgb(233, 232, 232);
+          width: 230px;
+          height: 300px;
+          right: 150px;
+          border-radius: 30px;
+          top: 0px;
+          transform: rotate(35deg);
+          z-index: -3;
+          box-shadow: 0px 5px 40px 5px rgba(33, 43, 48, 0.137);
+        }
+        .loginContent {
+          z-index: 9;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          padding: 30px;
+          h1 {
+            font-size: 40px;
+          }
+          input {
+            border: none;
+            border-bottom: 1px solid #333;
+            background: transparent;
+          }
+          input:focus {
+            outline: none;
+          }
+          button {
+            padding: 7px 25px;
+            background: #394dffe8;
+            border: none;
+            color: #fff;
+            box-shadow: 1px 1px 10px 2px #7c7777c2;
+            &:active {
+              box-shadow: 1px 1px 10px 2px #7c777749;
+            }
+          }
+
+          p {
+            color: #333;
+            cursor: pointer;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .slideDown {
+        height: 0px;
+        box-shadow: none;
+      }
+    }
+
+    .home {
+      height: calc(100vh - 70px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .left {
+        // background: #999;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        h1 {
+          font-size: 60px;
+          color: #222;
+        }
+        h2 {
+          color: #394dffe8;
+        }
+        p {
+          color: #555;
+        }
+      }
+      .right {
+        .girl {
+          width: 350px;
+          height: 350px;
+          background-image: url(../../assets/girl_laptop.svg);
+          //   background: red;
+          background-position: 10% 0%;
+          background-size: cover;
+        }
+      }
+    }
+
+    .newsSection {
+      .newsTitleSection {
+        padding: 40px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h1 {
+          font-size: 50px;
+          color: #222;
+        }
+        p {
+          color: #555;
+        }
+      }
+      .newsBody {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+
+        padding: 20px 0px;
+        .cards {
+          padding: 0 90px;
+          display: grid;
+          grid-template-columns: repeat(1, 1fr);
+          //   background-color: red;
+          .card {
+            padding: 30px;
+            margin-bottom: 70px;
+            width: 100%;
+            border: 1px solid gray;
+            box-shadow: 0px 0px 50px 2px rgb(229, 226, 226);
+            h3 {
+              font-size: 12px;
+              margin-top: 20px;
+              color: #394dffe8;
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .sideTable {
+          //   background-color: red;
+
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+
+          th,
+          td {
+            border: 1px solid #ddd;
+            padding: 8px 10px;
+            text-align: left;
+          }
+
+          th {
+            background-color: #f2f2f2;
+            padding: 8px 60px;
+          }
+
+          tr:hover {
+            background-color: #f5f5f5;
+          }
+        }
+
+        p {
+          margin-top: 30px;
+        }
+      }
+    }
+  }
 }
