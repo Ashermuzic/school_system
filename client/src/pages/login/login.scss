@@ -73,6 +73,7 @@
             border: none;
             color: #fff;
             box-shadow: 1px 1px 10px 2px #7c7777c2;
+            cursor: pointer;
             &:active {
               box-shadow: 1px 1px 10px 2px #7c777749;
             }
@@ -80,7 +81,6 @@
 
           p {
             color: #333;
-            cursor: pointer;
             &:hover {
               text-decoration: underline;
             }

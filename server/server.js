@@ -290,23 +290,51 @@ app.get("/teacherCount", (req, res) => {
   });
 });
 
-// =============LOGIN============
+// =============LOGIN Admin============
+
+// app.post("/login", (req, res) => {
+//   const sql = "SELECT * FROM admins WHERE name = ? AND password = ?";
+//   con.query(sql, [req.body.name, req.body.password], (err, result) => {
+//     if (err)
+//       return res.json({ Status: "Error", Error: "Error in running query" });
+//     if (result.length > 0) {
+//       const id = result[0].id;
+//       const token = jwt.sign({ role: "admin" }, "jwt-secret-key", {
+//         expiresIn: "1d",
+//       });
+//       res.cookie("token", token);
+
+//       // Log the cookie
+//       console.log("Cookie:", res.getHeaders()["set-cookie"]);
+//       console.log(req.body.name);
+
+//       // return res.json({ Status: "Success" });
+//       return res.json({ Status: "Success" });
+//     } else {
+//       return res.json({ Status: "Error", Error: "Wrong Email or password" });
+//     }
+//   });
+// });
 
 app.post("/login", (req, res) => {
-  const sql = "SELECT * FROM users WHERE email = ? AND password = ?";
-  con.query(sql, [req.body.email, req.body.password], (err, result) => {
-    if (err)
-      return res.json({ Status: "Error", Error: "Error in running query" });
-    if (result.length > 0) {
-      const id = result[0].id;
-      const token = jwt.sign({ role: "admin" }, "jwt-secret-key", {
-        expiresIn: "1d",
-      });
-      res.cookie("token", token);
-      return res.json({ Status: "Success" });
-    } else {
-      return res.json({ Status: "Error", Error: "Wrong Email or password" });
-    }
+  const q = "SELECT * FROM admins WHERE name = ? AND password = ?";
+
+  con.query(q, [req.body.name, req.body.password], (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (data.length === 0) return res.status(404).json("User not found!");
+
+    // The query will return a row only if the username and password match.
+    // No further password processing is needed.
+
+    const token = jwt.sign({ id: data[0].id }, "jwtkey");
+    const { password, ...other } = data[0];
+
+    res
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json(other);
   });
 });
 

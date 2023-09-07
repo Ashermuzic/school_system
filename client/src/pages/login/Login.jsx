@@ -1,13 +1,39 @@
 import "./login.scss";
 import Girl from "../../assets/girl_laptop.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [showLoginForm, setShowLoginForm] = useState(true);
+  const [inputs, setInputs] = useState({
+    name: "",
+    password: "",
+  });
+  const [err, setError] = useState(null);
 
   const toggleLoginForm = () => {
     setShowLoginForm(!showLoginForm);
   };
+
+  const navigate = useNavigate();
+
+  const { login } = useContext(AuthContext);
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await login(inputs);
+      navigate("/");
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
+
   return (
     <div className="mainLogin">
       <div className="container">
@@ -22,10 +48,20 @@ const Login = () => {
           <div className={`loginForm ${showLoginForm ? "slideDown" : ""}`}>
             <div className="loginContent">
               <h1>Login</h1>
-              <input type="text" placeholder="Username" />
-              <input type="password" placeholder="Password" />
+              <input
+                type="text"
+                placeholder="Username"
+                name="name"
+                onChange={handleChange}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                onChange={handleChange}
+              />
 
-              <button>Submit</button>
+              <button onClick={handleSubmit}>Submit</button>
               <p>Forgot your password?</p>
             </div>
           </div>
