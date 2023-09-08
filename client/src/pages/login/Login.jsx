@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../context/authContext";
 import moment from "moment";
+import PostContent from "./PostContent";
 
 const Login = () => {
   const [showLoginForm, setShowLoginForm] = useState(true);
@@ -178,7 +179,7 @@ const Login = () => {
                   <div className="card" key={post.id}>
                     <h2>From Mrs.{post.name}</h2>
                     <hr />
-                    <p>{post.desc}</p>
+                    <PostContent content={post.desc} /> {/* p tag bug fixed*/}
                     <h3>{moment(post.date).fromNow()}</h3>
                   </div>
                 );
