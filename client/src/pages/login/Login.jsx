@@ -97,8 +97,6 @@ const Login = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(posts);
-
   return (
     <div className="mainLogin">
       <div className="container">
@@ -127,7 +125,7 @@ const Login = () => {
                   onChange={handleChange}
                 />
 
-                <button onClick={handleAdminSubmit}>Submit</button>
+                <button onClick={handleTeacherSubmit}>Submit</button>
                 <p onClick={toggleMoveForm}>but im an admin ?</p>
               </div>
               <div className={`twoCards dis-none ${moveForm ? "margin" : ""}`}>
@@ -145,7 +143,7 @@ const Login = () => {
                   onChange={handleChange}
                 />
 
-                <button onClick={handleTeacherSubmit}>Submit</button>
+                <button onClick={handleAdminSubmit}>Submit</button>
                 <p onClick={toggleMoveForm}>but im a teacher ?</p>
               </div>
             </div>
@@ -178,7 +176,7 @@ const Login = () => {
               {posts.map((post) => {
                 return (
                   <div className="card" key={post.id}>
-                    <h2>{post.name}</h2>
+                    <h2>From Mrs.{post.name}</h2>
                     <hr />
                     <p>{post.desc}</p>
                     <h3>{moment(post.date).fromNow()}</h3>

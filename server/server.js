@@ -427,6 +427,16 @@ app.post("/createTeacher", upload.single("img"), (req, res) => {
 
 // =============CREATE Post============
 
+app.post("/publishPost", (req, res) => {
+  const sql = "INSERT INTO posts (`name`,`desc`,`date`) VALUES (?)";
+
+  const values = [req.body.name, req.body.desc, req.body.date];
+
+  con.query(sql, [values], (err, result) => {
+    if (err) return res.json({ Error: "Error Inside signup query" });
+    return res.json({ Status: "Success" });
+  });
+});
 // =============Fetch Post============
 
 app.get("/getPosts", (req, res) => {
