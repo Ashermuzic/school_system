@@ -64,6 +64,9 @@
             input:focus {
               outline: none;
             }
+            input::placeholder {
+              color: #020c69e8;
+            }
             button {
               padding: 7px 25px;
               background: #394dffe8;

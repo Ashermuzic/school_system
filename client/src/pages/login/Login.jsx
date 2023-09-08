@@ -1,11 +1,11 @@
 import "./login.scss";
-import Girl from "../../assets/girl_laptop.png";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { AuthContext } from "../../context/authContext";
 
 const Login = () => {
-  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(true);
   const [moveForm, setMoveForm] = useState(false);
   const [inputs, setInputs] = useState({
     name: "",
@@ -23,16 +23,58 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const { login } = useContext(AuthContext);
-
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e) => {
+  // const handleAdminSubmit = (event) => {
+  //   event.preventDefault();
+  //   axios
+  //     .post("http://localhost:8081/loginAdmin", inputs)
+  //     .then((res) => {
+  //       console.log(res.status);
+  //       if (res.status === 200) {
+  //         navigate("/");
+  //       } else {
+  //         setError(res.data.Error);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  const { loginAdmin } = useContext(AuthContext);
+
+  const handleAdminSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(inputs);
+      await loginAdmin(inputs);
+      navigate("/");
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
+
+  // const handleTeacherSubmit = (event) => {
+  //   event.preventDefault();
+  //   axios
+  //     .post("http://localhost:8081/loginTeacher", inputs)
+  //     .then((res) => {
+  //       console.log(res.status);
+  //       if (res.status === 200) {
+  //         navigate("/");
+  //       } else {
+  //         setError(res.data.Error);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  const { loginTeacher } = useContext(AuthContext);
+
+  const handleTeacherSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await loginTeacher(inputs);
       navigate("/");
     } catch (err) {
       setError(err.response.data);
@@ -67,7 +109,7 @@ const Login = () => {
                   onChange={handleChange}
                 />
 
-                <button onClick={handleSubmit}>Submit</button>
+                <button onClick={handleAdminSubmit}>Submit</button>
                 <p onClick={toggleMoveForm}>but im an admin ?</p>
               </div>
               <div className={`twoCards dis-none ${moveForm ? "margin" : ""}`}>
@@ -85,7 +127,7 @@ const Login = () => {
                   onChange={handleChange}
                 />
 
-                <button onClick={handleSubmit}>Submit</button>
+                <button onClick={handleTeacherSubmit}>Submit</button>
                 <p onClick={toggleMoveForm}>but im a teacher ?</p>
               </div>
             </div>

@@ -4,26 +4,31 @@ import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(
+  const [currentUserRole, setCurrentUserRole] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
 
-  const login = async (inputs) => {
-    const res = await axios.post("http://localhost:8081/login", inputs);
-    setCurrentUser(res.data);
+  const loginAdmin = async (inputs) => {
+    const res = await axios.post("http://localhost:8081/loginAdmin", inputs);
+    setCurrentUserRole(res.data.role);
+  };
+
+  const loginTeacher = async (inputs) => {
+    const res = await axios.post("http://localhost:8081/loginTeacher", inputs);
+    setCurrentUserRole(res.data.role);
   };
 
   const logout = async (inputs) => {
     await axios.post("/auth/logout");
-    setCurrentUser(null);
+    setCurrentUserRole(null);
   };
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser));
-  }, [currentUser]);
+    localStorage.setItem("user", JSON.stringify(currentUserRole));
+  }, [currentUserRole]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, logout }}>
+    <AuthContext.Provider value={{ currentUserRole, loginAdmin, loginTeacher }}>
       {children}
     </AuthContext.Provider>
   );

@@ -17,9 +17,11 @@ import EditStudent from "./pages/edit/EditStudent";
 import EditTeacher from "./pages/edit/EditTeacher";
 import Stats from "./pages/stats/Stats";
 import Write from "./pages/write/Write";
+import { AuthContext } from "./context/authContext";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
+  const { currentUserRole } = useContext(AuthContext);
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
