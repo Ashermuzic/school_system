@@ -425,6 +425,19 @@ app.post("/createTeacher", upload.single("img"), (req, res) => {
   });
 });
 
+// =============CREATE Post============
+
+// =============Fetch Post============
+
+app.get("/getPosts", (req, res) => {
+  const q = "SELECT * FROM posts";
+
+  con.query(q, (err, data) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).json(data);
+  });
+});
+
 app.listen(8081, () => {
   console.log("running");
 });

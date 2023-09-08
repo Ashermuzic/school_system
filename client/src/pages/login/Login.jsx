@@ -1,8 +1,9 @@
 import "./login.scss";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../context/authContext";
+import moment from "moment";
 
 const Login = () => {
   const [showLoginForm, setShowLoginForm] = useState(true);
@@ -81,6 +82,23 @@ const Login = () => {
     }
   };
 
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/getPosts")
+      .then((res) => {
+        if (res.status === 200) {
+          setPosts(res.data);
+        } else {
+          alert("Error");
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(posts);
+
   return (
     <div className="mainLogin">
       <div className="container">
@@ -157,42 +175,16 @@ const Login = () => {
           </div>
           <div className="newsBody">
             <div className="cards">
-              <div className="card">
-                <h2>From MR.Samuel</h2>
-                <hr />
-                <p>
-                  "Hello, class! As we embark on today's lesson, I want to
-                  emphasize the power of perseverance. Learning can sometimes be
-                  challenging, and you may encounter obstacles along the way.
-                  But remember, it's those very challenges that help us grow and
-                  develop resilience. Don't be discouraged by mistakes; they're
-                  stepping stones to success. Take risks, be creative, and never
-                  stop questioning the world around you. In this classroom, we
-                  celebrate curiosity, and your questions are like keys that
-                  unlock new doors of understanding. So, let's embrace the joy
-                  of learning, support one another, and make every moment count.
-                  Together, we'll achieve remarkable things!"
-                </p>
-                <h3>Posted 3 min ago</h3>
-              </div>
-              <div className="card">
-                <h2>From Mrs.Liyu</h2>
-                <hr />
-                <p>
-                  "Hello, class! As we embark on today's lesson, I want to
-                  emphasize the power of perseverance. Learning can sometimes be
-                  challenging, and you may encounter obstacles along the way.
-                  But remember, it's those very challenges that help us grow and
-                  develop resilience. Don't be discouraged by mistakes; they're
-                  stepping stones to success. Take risks, be creative, and never
-                  stop questioning the world around you. In this classroom, we
-                  celebrate curiosity, and your questions are like keys that
-                  unlock new doors of understanding. So, let's embrace the joy
-                  of learning, support one another, and make every moment count.
-                  Together, we'll achieve remarkable things!"
-                </p>
-                <h3>Posted 2 sec ago</h3>
-              </div>
+              {posts.map((post) => {
+                return (
+                  <div className="card" key={post.id}>
+                    <h2>{post.name}</h2>
+                    <hr />
+                    <p>{post.desc}</p>
+                    <h3>{moment(post.date).fromNow()}</h3>
+                  </div>
+                );
+              })}
             </div>
             <div className="sideTable">
               <table>
