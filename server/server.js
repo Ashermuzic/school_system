@@ -316,6 +316,8 @@ app.get("/teacherCount", (req, res) => {
 //   });
 // });
 
+// =============LOGIN Admin============
+
 app.post("/loginAdmin", (req, res) => {
   const q = "SELECT * FROM admins WHERE name = ? AND password = ?";
 
@@ -341,7 +343,7 @@ app.post("/loginAdmin", (req, res) => {
   });
 });
 
-// =============EmployeeLOGIN============
+// =============LOGIN Teacher============
 
 app.post("/loginTeacher", (req, res) => {
   const q = "SELECT * FROM teachers WHERE name = ? AND password = ?";

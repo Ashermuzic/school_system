@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -19,7 +20,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const logout = async (inputs) => {
-    await axios.post("/auth/logout");
+    await axios.get("http://localhost:8081/logout");
     setCurrentUserRole(null);
   };
 
@@ -28,7 +29,9 @@ export const AuthContextProvider = ({ children }) => {
   }, [currentUserRole]);
 
   return (
-    <AuthContext.Provider value={{ currentUserRole, loginAdmin, loginTeacher }}>
+    <AuthContext.Provider
+      value={{ currentUserRole, loginAdmin, loginTeacher, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
