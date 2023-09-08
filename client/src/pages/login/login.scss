@@ -25,7 +25,10 @@
         }
       }
       .loginForm {
-        background: #9aa0d1f1;
+        background: rgba(55, 0, 255, 0.075);
+        background-image: url(../../assets/Wave.svg);
+        background-position: center;
+        background-size: cover;
         display: flex;
         justify-content: center;
         position: absolute;
@@ -35,58 +38,70 @@
         top: 70px;
         overflow: hidden;
         transition: all 0.5s;
-        box-shadow: 0px 5px 20px 2px #777777;
-        ::before {
-          position: absolute;
-          content: "";
-          background: rgb(233, 232, 232);
-          width: 230px;
-          height: 300px;
-          right: 150px;
-          border-radius: 30px;
-          top: 0px;
-          transform: rotate(35deg);
-          z-index: -3;
-          box-shadow: 0px 5px 40px 5px rgba(33, 43, 48, 0.137);
-        }
+        box-shadow: 0px 5px 10px 5px #7777776c;
+        backdrop-filter: blur(20px);
+
         .loginContent {
-          z-index: 9;
+          z-index: 99;
           display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-around;
-          padding: 30px;
-          h1 {
-            font-size: 40px;
-          }
-          input {
-            border: none;
-            border-bottom: 1px solid #333;
-            background: transparent;
-          }
-          input:focus {
-            outline: none;
-          }
-          button {
-            padding: 7px 25px;
-            background: #394dffe8;
-            border: none;
-            color: #fff;
-            box-shadow: 1px 1px 10px 2px #7c7777c2;
-            cursor: pointer;
-            &:active {
-              box-shadow: 1px 1px 10px 2px #7c777749;
+          // flex-direction: column;
+          .twoCards {
+            z-index: 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            // padding: 30px;
+
+            h1 {
+              font-size: 40px;
             }
+            input {
+              border: none;
+              border-bottom: 1px solid #333;
+              background: transparent;
+            }
+            input:focus {
+              outline: none;
+            }
+            button {
+              padding: 7px 25px;
+              background: #394dffe8;
+              border: none;
+              color: #fff;
+              box-shadow: 1px 1px 10px 2px #7c7777c2;
+              cursor: pointer;
+              &:active {
+                box-shadow: 1px 1px 10px 2px #7c777749;
+              }
+            }
+
+            p {
+              color: #333;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+          .push {
+            margin-left: 230px;
+            width: 230px;
+            // background-color: blue;
+          }
+          .dis-none {
+            width: 230px;
+            // background-color: red;
+            // display: none;
+            transition: all 1s;
+            z-index: 9;
           }
 
-          p {
-            color: #333;
-            &:hover {
-              text-decoration: underline;
-            }
+          .margin {
+            margin-right: 460px;
           }
         }
       }
+
       .slideDown {
         height: 0px;
         box-shadow: none;

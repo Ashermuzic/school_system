@@ -5,7 +5,8 @@ import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [showLoginForm, setShowLoginForm] = useState(true);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [moveForm, setMoveForm] = useState(false);
   const [inputs, setInputs] = useState({
     name: "",
     password: "",
@@ -14,6 +15,10 @@ const Login = () => {
 
   const toggleLoginForm = () => {
     setShowLoginForm(!showLoginForm);
+  };
+
+  const toggleMoveForm = () => {
+    setMoveForm(!moveForm);
   };
 
   const navigate = useNavigate();
@@ -47,22 +52,42 @@ const Login = () => {
 
           <div className={`loginForm ${showLoginForm ? "slideDown" : ""}`}>
             <div className="loginContent">
-              <h1>Login</h1>
-              <input
-                type="text"
-                placeholder="Username"
-                name="name"
-                onChange={handleChange}
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                onChange={handleChange}
-              />
+              <div className="twoCards push">
+                <h1>Login</h1>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="name"
+                  onChange={handleChange}
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  onChange={handleChange}
+                />
 
-              <button onClick={handleSubmit}>Submit</button>
-              <p>Forgot your password?</p>
+                <button onClick={handleSubmit}>Submit</button>
+                <p onClick={toggleMoveForm}>but im an admin ?</p>
+              </div>
+              <div className={`twoCards dis-none ${moveForm ? "margin" : ""}`}>
+                <h1>Admin</h1>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="name"
+                  onChange={handleChange}
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  onChange={handleChange}
+                />
+
+                <button onClick={handleSubmit}>Submit</button>
+                <p onClick={toggleMoveForm}>but im a teacher ?</p>
+              </div>
             </div>
           </div>
         </div>
@@ -90,24 +115,6 @@ const Login = () => {
           </div>
           <div className="newsBody">
             <div className="cards">
-              <div className="card">
-                <h2>From MR.Asher</h2>
-                <hr />
-                <p>
-                  "Good morning, students! I hope you all had a fantastic
-                  weekend and are ready to dive into another exciting week of
-                  learning together. Remember, each day is a new opportunity to
-                  expand your horizons, whether it's in math, science,
-                  literature, or any other subject. So, let's embrace this day
-                  with enthusiasm, curiosity, and a growth mindset. Don't be
-                  afraid to ask questions, make mistakes, and explore the
-                  unknown. Our classroom is a place where your unique voices and
-                  ideas matter, so let's make the most of it. Let's work hard,
-                  support one another, and make this learning journey an
-                  unforgettable one!"
-                </p>
-                <h3>Posted 2 hours ago</h3>
-              </div>
               <div className="card">
                 <h2>From MR.Samuel</h2>
                 <hr />
