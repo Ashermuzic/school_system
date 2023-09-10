@@ -51,7 +51,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await loginAdmin(inputs);
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response.data);
     }
@@ -78,7 +78,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await loginTeacher(inputs);
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response.data);
     }
