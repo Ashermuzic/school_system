@@ -22,6 +22,7 @@ export const AuthContextProvider = ({ children }) => {
   const loginTeacher = async (inputs) => {
     const res = await axios.post("http://localhost:8081/loginTeacher", inputs);
     setCurrentUserRole(res.data.role);
+    setCurrentUser(res.data.name);
   };
 
   const logout = async (inputs) => {

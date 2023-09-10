@@ -17,6 +17,7 @@ import EditStudent from "./pages/edit/EditStudent";
 import EditTeacher from "./pages/edit/EditTeacher";
 import Stats from "./pages/stats/Stats";
 import Write from "./pages/write/Write";
+import AttachFile from "./pages/attach/AttachFile";
 import { AuthContext } from "./context/authContext";
 
 function App() {
@@ -80,6 +81,9 @@ function App() {
             </Route>
             <Route path="write">
               <Route index element={<Write />} />
+            </Route>
+            <Route path="attachFile">
+              <Route index element={<AttachFile />} />
             </Route>
           </Route>
         </Routes>

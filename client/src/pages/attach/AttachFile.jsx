@@ -5,8 +5,9 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import moment from "moment";
-import "./write.css";
+import "./attach.css";
 import { AuthContext } from "../../context/authContext";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const Write = () => {
   const [value, setValue] = useState("");
@@ -43,7 +44,7 @@ const Write = () => {
       <div className="homeContainer">
         <Navbar />
         <div className="titleContainer">
-          <h2 className="title">Write Your Message Below</h2>
+          <h2 className="title">Create a New Post with Attachment</h2>
         </div>
         <div className="editorContainer">
           <ReactQuill
@@ -54,7 +55,12 @@ const Write = () => {
           />
         </div>
         <div className="buttonContainer">
-          <div></div>
+          <label htmlFor="attachedFile" className="labelContainer">
+            <p>Select a file to attach</p>
+            <CloudUploadIcon className="icon" />
+          </label>
+
+          <input type="file" id="attachedFile" style={{ display: "none" }} />
           <button onClick={handlePublish}>Publish</button>
         </div>
       </div>

@@ -1,0 +1,50 @@
+.editorContainer {
+  height: 200px;
+  padding: 0 50px 40px 50px;
+}
+.editor {
+  height: 100%;
+  border: none;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px;
+}
+
+.titleContainer .title {
+  color: #555;
+}
+
+.buttonContainer {
+  margin: 40px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonContainer .labelContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.buttonContainer .labelContainer .icon {
+  color: #394dffe8;
+}
+
+.buttonContainer button {
+  padding: 5px 15px;
+  background: #394dffe8;
+  border: none;
+  color: #fff;
+  box-shadow: 2px 2px 3px #444;
+}
+
+.buttonContainer button:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 3px #444;
+}

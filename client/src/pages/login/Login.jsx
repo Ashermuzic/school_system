@@ -5,6 +5,7 @@ import axios from "axios";
 import { AuthContext } from "../../context/authContext";
 import moment from "moment";
 import PostContent from "./PostContent";
+import GetAppIcon from "@mui/icons-material/GetApp";
 
 const Login = () => {
   const [showLoginForm, setShowLoginForm] = useState(true);
@@ -232,6 +233,68 @@ const Login = () => {
                   <td>June 15, 2024</td>
                 </tr>
               </table>
+            </div>
+          </div>
+        </div>
+        <div className="resourceSection">
+          <div className="resourceTitleSection">
+            <h1>Supplementary Resources</h1>
+            <p>Explore additional materials and resources below.</p>
+          </div>
+          <div className="resourceBody">
+            <div className="cards">
+              <div className="card">
+                <h2>From Mrs.Adam</h2>
+                <hr />
+                <p>
+                  Dear Students, Please review this semester's worksheet for
+                  valuable insights.
+                </p>
+                <div className="download">
+                  <h3>posted 2 days ago</h3>
+
+                  <GetAppIcon className="icon" />
+                </div>
+              </div>
+              <div className="card">
+                <h2>From Mrs.Adam</h2>
+                <hr />
+                <p>
+                  Dear Students, Please review this semester's worksheet for
+                  valuable insights.
+                </p>
+                <div className="download">
+                  <h3>posted 2 days ago</h3>
+
+                  <GetAppIcon className="icon" />
+                </div>
+              </div>
+              <div className="card">
+                <h2>From Mrs.Adam</h2>
+                <hr />
+                <p>
+                  Dear Students, Please review this semester's worksheet for
+                  valuable insights.
+                </p>
+                <div className="download">
+                  <h3>posted 2 days ago</h3>
+
+                  <GetAppIcon className="icon" />
+                </div>
+              </div>
+              <div className="card">
+                <h2>From Mrs.Adam</h2>
+                <hr />
+                <p>
+                  Dear Students, Please review this semester's worksheet for
+                  valuable insights.
+                </p>
+                <div className="download">
+                  <h3>posted 2 days ago</h3>
+
+                  <GetAppIcon className="icon" />
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -6,6 +6,8 @@ import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
+import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
+import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
@@ -67,8 +69,15 @@ const Sidebar = () => {
 
           <Link to="/write" style={{ textDecoration: "none" }}>
             <li>
-              <PsychologyOutlinedIcon className="icon" />
+              <ComputerOutlinedIcon className="icon" />
               <span>Publish News</span>
+            </li>
+          </Link>
+
+          <Link to="/attachFile" style={{ textDecoration: "none" }}>
+            <li>
+              <LibraryBooksOutlinedIcon className="icon" />
+              <span>Attach files</span>
             </li>
           </Link>
 
