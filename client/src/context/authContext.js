@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [currentUserRole, setCurrentUserRole] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+  // Parse the user data from localStorage or set it to null if it doesn't exist
+  const initialUser = JSON.parse(localStorage.getItem("user")) || {
+    name: null,
+    role: null,
+  };
 
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+  const [currentUserRole, setCurrentUserRole] = useState(initialUser.role);
+  const [currentUser, setCurrentUser] = useState(initialUser.name);
 
   const loginAdmin = async (inputs) => {
     const res = await axios.post("http://localhost:8081/loginAdmin", inputs);
@@ -28,13 +29,11 @@ export const AuthContextProvider = ({ children }) => {
   const logout = async (inputs) => {
     await axios.get("http://localhost:8081/logout");
     setCurrentUserRole(null);
+    setCurrentUser(null);
   };
 
-  // useEffect(() => {
-  //   localStorage.setItem("user", JSON.stringify(currentUserRole, currentUser));
-  // }, [currentUserRole, currentUser]);
-
   useEffect(() => {
+    // Store the user data in localStorage
     localStorage.setItem(
       "user",
       JSON.stringify({ role: currentUserRole, name: currentUser })
