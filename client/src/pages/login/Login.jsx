@@ -170,7 +170,9 @@ const Login = () => {
         </div>
         <div className="newsSection">
           <div className="newsTitleSection">
-            <h1>News Section</h1>
+            <h1>
+              News <span>Section</span>
+            </h1>
             <p>Read about recent achievements, news, and announcements.</p>
           </div>
           <div className="newsBody">
@@ -238,7 +240,9 @@ const Login = () => {
         </div>
         <div className="resourceSection">
           <div className="resourceTitleSection">
-            <h1>Supplementary Resources</h1>
+            <h1>
+              <span>Supplementary </span>Resources
+            </h1>
             <p>Explore additional materials and resources below.</p>
           </div>
           <div className="resourceBody">
