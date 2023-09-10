@@ -12,29 +12,33 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 const Write = () => {
   const [value, setValue] = useState("");
   const { currentUser } = useContext(AuthContext);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
 
   const handlePublish = async () => {
     try {
-      // Get the current date and time using moment.js
       const currentDate = moment().format("YYYY-MM-DD HH:mm:ss");
 
-      console.log("Current Date:", currentDate);
+      const formData = new FormData();
+      formData.append("desc", value);
+      formData.append("date", currentDate);
+      formData.append("name", currentUser);
+      formData.append("file", selectedFile); // Attach the selected file
 
-      // Send a POST request with the message content and date
-      await axios.post("http://localhost:8081/publishPost", {
-        desc: value,
-        date: currentDate,
-        name: currentUser,
+      await axios.post("http://localhost:8081/uploadTeacherFile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Set the content type for file uploads
+        },
       });
 
-      // Optionally, you can clear the editor after successful submission
       setValue("");
-
-      // You can also redirect the user or show a success message here
+      setSelectedFile(null);
     } catch (error) {
       console.error("Error publishing post:", error);
-
-      // Handle any errors that occur during the request
     }
   };
 
@@ -60,7 +64,12 @@ const Write = () => {
             <CloudUploadIcon className="icon" />
           </label>
 
-          <input type="file" id="attachedFile" style={{ display: "none" }} />
+          <input
+            type="file"
+            id="attachedFile"
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
           <button onClick={handlePublish}>Publish</button>
         </div>
       </div>

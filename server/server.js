@@ -48,6 +48,20 @@ const upload = multer({
   storage: storage,
 });
 
+const teacherStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/teacher_files");
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+const uploadTeacher = multer({ storage: teacherStorage });
+
 con.connect(function (err) {
   if (err) {
     console.log("Error in connection");
@@ -445,6 +459,30 @@ app.get("/getPosts", (req, res) => {
   con.query(q, (err, data) => {
     if (err) return res.status(500).send(err);
     return res.status(200).json(data);
+  });
+});
+
+// =============File Post Teacher============
+
+app.post("/uploadTeacherFile", uploadTeacher.single("file"), (req, res) => {
+  const sql =
+    "INSERT INTO teacher_post (`name`, `desc`, `filename`, `date`) VALUES (?)";
+
+  let attachedFilename = req.file ? req.file.filename : "no_file_found.png";
+
+  const values = [
+    req.body.name,
+    req.body.desc,
+    attachedFilename,
+    req.body.date,
+  ];
+
+  con.query(sql, [values], (err, result) => {
+    if (err) {
+      console.error("Error in database query:", err);
+      return res.status(500).json({ Error: "Internal server error" }); // Provide a more informative error message
+    }
+    return res.json({ Status: "Success" });
   });
 });
 
