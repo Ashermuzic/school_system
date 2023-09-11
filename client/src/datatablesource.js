@@ -52,6 +52,60 @@ export const userColumns = [
   // },
 ];
 
+export const gradeColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img
+            className="cellImg"
+            src={`http://localhost:8081/images/${params.row.img}`}
+            alt="avatar"
+          />
+          {params.row.name}
+        </div>
+      );
+    },
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 230,
+  },
+
+  {
+    field: "age",
+    headerName: "Age",
+    width: 100,
+  },
+  {
+    field: "sex",
+    headerName: "Sex",
+    width: 100,
+  },
+  {
+    field: "grade",
+    headerName: "Grade",
+    width: 100,
+  },
+  // {
+  //   field: "status",
+  //   headerName: "Status",
+  //   width: 160,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cellWithStatus ${params.row.status}`}>
+  //         {params.row.status}
+  //       </div>
+  //     );
+  //   },
+  // },
+];
+
 export const TeacherColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {
@@ -77,7 +131,7 @@ export const TeacherColumns = [
     width: 230,
   },
   {
-    field: "subject",
+    field: "subject_name",
     headerName: "Subject",
     width: 150,
   },

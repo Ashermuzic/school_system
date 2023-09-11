@@ -85,6 +85,16 @@ const Sidebar = () => {
             <SettingsApplicationsIcon className="icon" />
             <span>Settings</span>
           </li>
+
+          <p className="title">STUDENTS</p>
+
+          <Link to="/myStudents" style={{ textDecoration: "none" }}>
+            <li>
+              <PersonOutlineIcon className="icon" />
+              <span>My Students</span>
+            </li>
+          </Link>
+
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />

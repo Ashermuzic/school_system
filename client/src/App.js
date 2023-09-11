@@ -10,6 +10,7 @@ import NewStudent from "./pages/new/NewStudent";
 import NewTeacher from "./pages/new/NewTeacher";
 import TeacherList from "./pages/list/TeacherList";
 import AdminList from "./pages/list/AdminList";
+import GradeList from "./pages/list/GradeList";
 import SingleTeacher from "./pages/single/SingleTeacher";
 import SingleAdmin from "./pages/single/SingleAdmin";
 import EditStudent from "./pages/edit/EditStudent";
@@ -81,6 +82,9 @@ function App() {
           </Route>
           <Route path="attachFile">
             <Route index element={<AttachFile />} />
+          </Route>
+          <Route path="myStudents">
+            <Route index element={<GradeList />} />
           </Route>
         </Routes>
       </BrowserRouter>

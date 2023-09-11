@@ -96,9 +96,10 @@ app.get("/getStudents", (req, res) => {
 // =============getTeachers============
 
 app.get("/getTeachers", (req, res) => {
-  const sql = "SELECT * FROM teachers";
+  const sql =
+    "SELECT teachers.*, subjects.subject_name FROM teachers JOIN subjects ON teachers.subject_id = subjects.id";
   con.query(sql, (err, result) => {
-    if (err) return res.json({ Error: "Get teachers error in sql" });
+    if (err) return res.json({ Error: "Get teachers error in SQL" });
     return res.json({ Status: "Success", Result: result });
   });
 });
@@ -497,6 +498,29 @@ app.get("/getTeacherFile", (req, res) => {
   con.query(q, (err, data) => {
     if (err) return res.status(500).send(err);
     return res.status(200).json(data);
+  });
+});
+
+// Students fetched based on Teacher
+
+app.get("/students/teacher/:teacherId", (req, res) => {
+  const teacherId = req.params.teacherId;
+  const sql = `
+    SELECT students.*, grades.*
+    FROM students
+    INNER JOIN grades ON students.id = grades.student_id
+    WHERE grades.teacher_id = ?
+  `;
+
+  con.query(sql, [teacherId], (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        error: "An error occurred while fetching students and grades.",
+      });
+    }
+    res.status(200).json(data);
+    console.log(data);
   });
 });
 
