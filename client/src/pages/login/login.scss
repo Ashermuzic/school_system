@@ -311,8 +311,22 @@
               display: flex;
               align-items: flex-end;
               justify-content: space-between;
-              .icon {
-                color: rgba(34, 59, 172, 0.884);
+              a {
+                display: flex;
+                align-items: flex-end;
+                justify-content: flex-end;
+
+                .icon {
+                  // background: gray;
+                  // border: 1px solid gray;
+                  padding: 3px;
+                  border-radius: 50%;
+                  color: rgba(34, 59, 172, 0.884);
+
+                  &:hover {
+                    background-color: rgba(128, 128, 128, 0.39);
+                  }
+                }
               }
             }
             h3 {

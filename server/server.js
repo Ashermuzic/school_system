@@ -12,6 +12,9 @@ const app = express();
 // Serve static files from the 'public' directory
 app.use(express.static("public"));
 
+// Serve uploaded teacher files from the "teacher_files" directory
+app.use("/attachedFiles", express.static("public/teacher_files"));
+
 app.use(
   cors({
     origin: ["http://localhost:3000"],
@@ -483,6 +486,17 @@ app.post("/uploadTeacherFile", uploadTeacher.single("file"), (req, res) => {
       return res.status(500).json({ Error: "Internal server error" }); // Provide a more informative error message
     }
     return res.json({ Status: "Success" });
+  });
+});
+
+// =============File Get Teacher============
+
+app.get("/getTeacherFile", (req, res) => {
+  const q = "SELECT * FROM teacher_post";
+
+  con.query(q, (err, data) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).json(data);
   });
 });
 

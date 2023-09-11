@@ -99,6 +99,21 @@ const Login = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const [teacherPosts, setTeacherPosts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/getTeacherFile")
+      .then((res) => {
+        if (res.status === 200) {
+          setTeacherPosts(res.data);
+        } else {
+          alert("Error");
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div className="mainLogin">
       <div className="container">
@@ -247,58 +262,26 @@ const Login = () => {
           </div>
           <div className="resourceBody">
             <div className="cards">
-              <div className="card">
-                <h2>From Mrs.Adam</h2>
-                <hr />
-                <p>
-                  Dear Students, Please review this semester's worksheet for
-                  valuable insights.
-                </p>
-                <div className="download">
-                  <h3>posted 2 days ago</h3>
-
-                  <GetAppIcon className="icon" />
-                </div>
-              </div>
-              <div className="card">
-                <h2>From Mrs.Adam</h2>
-                <hr />
-                <p>
-                  Dear Students, Please review this semester's worksheet for
-                  valuable insights.
-                </p>
-                <div className="download">
-                  <h3>posted 2 days ago</h3>
-
-                  <GetAppIcon className="icon" />
-                </div>
-              </div>
-              <div className="card">
-                <h2>From Mrs.Adam</h2>
-                <hr />
-                <p>
-                  Dear Students, Please review this semester's worksheet for
-                  valuable insights.
-                </p>
-                <div className="download">
-                  <h3>posted 2 days ago</h3>
-
-                  <GetAppIcon className="icon" />
-                </div>
-              </div>
-              <div className="card">
-                <h2>From Mrs.Adam</h2>
-                <hr />
-                <p>
-                  Dear Students, Please review this semester's worksheet for
-                  valuable insights.
-                </p>
-                <div className="download">
-                  <h3>posted 2 days ago</h3>
-
-                  <GetAppIcon className="icon" />
-                </div>
-              </div>
+              {teacherPosts.map((teacherPost) => {
+                return (
+                  <div className="card" key={teacherPost.id}>
+                    <h2>From {teacherPost.name}</h2>
+                    <hr />
+                    <p>
+                      <PostContent content={teacherPost.desc} />
+                    </p>
+                    <div className="download">
+                      <h3>{moment(teacherPost.date).fromNow()}</h3>
+                      <a
+                        href={`http://localhost:8081/attachedFiles/${teacherPost.filename}`}
+                        download
+                      >
+                        <GetAppIcon className="icon" />
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
