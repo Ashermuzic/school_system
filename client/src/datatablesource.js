@@ -57,7 +57,7 @@ export const gradeColumns = [
   {
     field: "name",
     headerName: "Name",
-    width: 230,
+    width: 220,
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
@@ -72,38 +72,26 @@ export const gradeColumns = [
     },
   },
   {
-    field: "email",
-    headerName: "Email",
-    width: 230,
+    field: "grade",
+    headerName: "Grade",
+    width: 110,
+  },
+  {
+    field: "continuous_assessment",
+    headerName: "Continuous Assessment",
+    width: 180,
   },
 
   {
-    field: "age",
-    headerName: "Age",
-    width: 100,
+    field: "midterm",
+    headerName: "Midterm",
+    width: 110,
   },
   {
-    field: "sex",
-    headerName: "Sex",
-    width: 100,
+    field: "final_exam",
+    headerName: "Final Exam",
+    width: 110,
   },
-  {
-    field: "grade",
-    headerName: "Grade",
-    width: 100,
-  },
-  // {
-  //   field: "status",
-  //   headerName: "Status",
-  //   width: 160,
-  //   renderCell: (params) => {
-  //     return (
-  //       <div className={`cellWithStatus ${params.row.status}`}>
-  //         {params.row.status}
-  //       </div>
-  //     );
-  //   },
-  // },
 ];
 
 export const TeacherColumns = [

@@ -9,10 +9,12 @@ export const AuthContextProvider = ({ children }) => {
   const initialUser = JSON.parse(localStorage.getItem("user")) || {
     name: null,
     role: null,
+    id: null,
   };
 
   const [currentUserRole, setCurrentUserRole] = useState(initialUser.role);
   const [currentUser, setCurrentUser] = useState(initialUser.name);
+  const [currentTeacherId, setCurrentTeacherId] = useState(initialUser.id);
 
   const loginAdmin = async (inputs) => {
     const res = await axios.post("http://localhost:8081/loginAdmin", inputs);
@@ -24,6 +26,7 @@ export const AuthContextProvider = ({ children }) => {
     const res = await axios.post("http://localhost:8081/loginTeacher", inputs);
     setCurrentUserRole(res.data.role);
     setCurrentUser(res.data.name);
+    setCurrentTeacherId(res.data.id);
   };
 
   const logout = async (inputs) => {
@@ -36,13 +39,24 @@ export const AuthContextProvider = ({ children }) => {
     // Store the user data in localStorage
     localStorage.setItem(
       "user",
-      JSON.stringify({ role: currentUserRole, name: currentUser })
+      JSON.stringify({
+        role: currentUserRole,
+        name: currentUser,
+        id: currentTeacherId,
+      })
     );
-  }, [currentUserRole, currentUser]);
+  }, [currentUserRole, currentUser, currentTeacherId]);
 
   return (
     <AuthContext.Provider
-      value={{ currentUserRole, currentUser, loginAdmin, loginTeacher, logout }}
+      value={{
+        currentUserRole,
+        currentUser,
+        currentTeacherId,
+        loginAdmin,
+        loginTeacher,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>
