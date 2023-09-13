@@ -80,17 +80,20 @@ export const gradeColumns = [
     field: "continuous_assessment",
     headerName: "Continuous Assessment",
     width: 180,
+    editable: true,
   },
 
   {
     field: "midterm",
     headerName: "Midterm",
     width: 110,
+    editable: true,
   },
   {
     field: "final_exam",
     headerName: "Final Exam",
     width: 110,
+    editable: true,
   },
 ];
 

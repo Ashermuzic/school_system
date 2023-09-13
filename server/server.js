@@ -501,6 +501,170 @@ app.get("/getTeacherFile", (req, res) => {
   });
 });
 
+// Students Grade post based on Teacher
+
+// app.post("/studentGrades", (req, res) => {
+//   const {
+//     studentId,
+//     teacherId,
+//     subjectId,
+//     continuousAssessment,
+//     midterm,
+//     finalExam,
+//     date,
+//   } = req.body;
+
+//   // Check for required fields
+//   if (!studentId || !teacherId || !subjectId || !date) {
+//     return res.status(400).json({
+//       error:
+//         "Required fields (studentId, teacherId, subjectId, date) are missing.",
+//     });
+//   }
+
+//   const sql = `
+//     INSERT INTO grades (student_id, teacher_id, subject_id, continuous_assessment, midterm, final_exam, date)
+//     VALUES (?, ?, ?, ?, ?, ?, ?)
+//   `;
+
+//   con.query(
+//     sql,
+//     [
+//       studentId,
+//       teacherId,
+//       subjectId,
+//       continuousAssessment || 0, // Make fields optional by providing null as default values
+//       midterm || 0,
+//       finalExam || 0,
+//       date,
+//     ],
+//     function (err, result) {
+//       if (err) {
+//         console.error(err);
+//         return res
+//           .status(500)
+//           .json({ error: "An error occurred while inserting grades." });
+//       }
+//       res.status(200).json({ message: "Grades inserted successfully" });
+//     }
+//   );
+// });
+
+// app.put("/studentGrades/:gradeId", (req, res) => {
+//   const gradeId = req.params.gradeId;
+//   const {
+//     studentId,
+//     teacherId,
+//     subjectId,
+//     continuousAssessment,
+//     midterm,
+//     finalExam,
+//     date,
+//   } = req.body;
+
+//   // Check for required fields
+//   if (!studentId || !teacherId || !subjectId || !date) {
+//     return res.status(400).json({
+//       error:
+//         "Required fields (studentId, teacherId, subjectId, date) are missing.",
+//     });
+//   }
+
+//   const sql = `
+//     UPDATE grades
+//     SET student_id = ?, teacher_id = ?, subject_id = ?,
+//     continuous_assessment = ?, midterm = ?, final_exam = ?, date = ?
+//     WHERE id = ?
+//   `;
+
+//   con.query(
+//     sql,
+//     [
+//       studentId,
+//       teacherId,
+//       subjectId,
+//       continuousAssessment || 0, // Make fields optional by providing 0 as default values
+//       midterm || 0,
+//       finalExam || 0,
+//       date,
+//       gradeId,
+//     ],
+//     function (err, result) {
+//       if (err) {
+//         console.error(err);
+//         return res
+//           .status(500)
+//           .json({ error: "An error occurred while updating grades." });
+//       }
+//       res.status(200).json({ message: "Grades updated successfully" });
+//     }
+//   );
+// });
+
+app.put("/studentGrades/:gradeId", (req, res) => {
+  const gradeId = req.params.gradeId;
+  const {
+    studentId,
+    teacherId,
+    subjectId,
+    continuous_assessment,
+    midterm,
+    final_exam,
+    date,
+  } = req.body;
+
+  console.log("Data received from client:");
+  console.log(req.body);
+
+  // Create an object to store the fields and their values that need to be updated
+  const updateFields = {};
+
+  // Check if each field is provided in the request body and add it to the updateFields object
+  if (studentId !== undefined) {
+    updateFields.student_id = studentId;
+  }
+  if (teacherId !== undefined) {
+    updateFields.teacher_id = teacherId;
+  }
+  if (subjectId !== undefined) {
+    updateFields.subject_id = subjectId;
+  }
+  if (continuous_assessment !== undefined) {
+    updateFields.continuous_assessment = continuous_assessment;
+  }
+  if (midterm !== undefined) {
+    updateFields.midterm = midterm;
+  }
+  if (final_exam !== undefined) {
+    updateFields.final_exam = final_exam;
+  }
+  if (date !== undefined) {
+    updateFields.date = date;
+  }
+
+  // Check if any fields were provided for updating
+  if (Object.keys(updateFields).length === 0) {
+    return res.status(400).json({ error: "No fields to update." });
+  }
+
+  // Build the SQL update query dynamically
+  const updateQuery = `
+    UPDATE grades
+    SET ?
+    WHERE id = ?
+  `;
+
+  con.query(updateQuery, [updateFields, gradeId], function (err, result) {
+    if (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while updating grades." });
+    }
+    res.status(200).json({ message: "Grades updated successfully" });
+  });
+});
+
 // Students fetched based on Teacher
 
 app.get("/students/teacher/:teacherId", (req, res) => {

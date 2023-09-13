@@ -62,14 +62,31 @@ const GradeTable = () => {
     },
   ];
 
+  // Function to handle PUT request
+  const handlePutGrade = (id, gradeType, value) => {
+    console.log(`Updating grade for row ID ${id}:`);
+    console.log(`Grade Type: ${gradeType}`);
+    console.log(`New Value: ${value}`);
+    // Send a PUT request to your /grades/:id endpoint with the updated grade data
+    axios
+      .put(`http://localhost:8081/studentGrades/${id}`, {
+        [gradeType]: value,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          console.log("Grade updated successfully.");
+        } else {
+          console.log("Error updating grade.");
+        }
+      })
+      .catch((error) => {
+        console.error("An error occurred while updating grade:", error);
+      });
+  };
+
   return (
     <div className="datatable">
-      <div className="datatableTitle">
-        Manage Student
-        <Link to="/students/new" className="link">
-          Add Student
-        </Link>
-      </div>
+      <div className="datatableTitle">Manage Student</div>
       <DataGrid
         className="datagrid"
         rows={data}
@@ -77,9 +94,17 @@ const GradeTable = () => {
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
+        // Add an event handler to trigger PUT requests when grades change
+        onCellEditCommit={(params) => {
+          const { id, field, value } = params;
+          if (
+            ["continuous_assessment", "midterm", "final_exam"].includes(field)
+          ) {
+            handlePutGrade(id, field, value);
+          }
+        }}
       />
     </div>
   );
 };
-
 export default GradeTable;
