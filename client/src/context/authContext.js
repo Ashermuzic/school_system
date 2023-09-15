@@ -10,16 +10,19 @@ export const AuthContextProvider = ({ children }) => {
     name: null,
     role: null,
     id: null,
+    img: null,
   };
 
   const [currentUserRole, setCurrentUserRole] = useState(initialUser.role);
   const [currentUser, setCurrentUser] = useState(initialUser.name);
   const [currentTeacherId, setCurrentTeacherId] = useState(initialUser.id);
+  const [currentImg, setCurrentImg] = useState(initialUser.img);
 
   const loginAdmin = async (inputs) => {
     const res = await axios.post("http://localhost:8081/loginAdmin", inputs);
     setCurrentUserRole(res.data.role);
     setCurrentUser(res.data.name);
+    setCurrentImg(res.data.img);
   };
 
   const loginTeacher = async (inputs) => {
@@ -27,6 +30,7 @@ export const AuthContextProvider = ({ children }) => {
     setCurrentUserRole(res.data.role);
     setCurrentUser(res.data.name);
     setCurrentTeacherId(res.data.id);
+    setCurrentImg(res.data.img);
   };
 
   const logout = async (inputs) => {
@@ -43,9 +47,10 @@ export const AuthContextProvider = ({ children }) => {
         role: currentUserRole,
         name: currentUser,
         id: currentTeacherId,
+        img: currentImg,
       })
     );
-  }, [currentUserRole, currentUser, currentTeacherId]);
+  }, [currentUserRole, currentUser, currentTeacherId, currentImg]);
 
   return (
     <AuthContext.Provider
@@ -53,6 +58,7 @@ export const AuthContextProvider = ({ children }) => {
         currentUserRole,
         currentUser,
         currentTeacherId,
+        currentImg,
         loginAdmin,
         loginTeacher,
         logout,
