@@ -7,25 +7,60 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const data = [
-  { name: "January", Total: 1200 },
-  { name: "February", Total: 2100 },
-  { name: "March", Total: 800 },
-  { name: "April", Total: 1600 },
-  { name: "May", Total: 900 },
-  { name: "June", Total: 1700 },
-];
+const data = [];
 
 const Chart = ({ aspect, title }) => {
+  const [subject, setSubject] = useState("");
+  const [chartData, setChartData] = useState([]);
+
+  const fetchData = () => {
+    axios
+      .get(`http://localhost:8081/average-points/${subject}`)
+      .then((results) => {
+        setChartData(results.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching chart data: ", error);
+      });
+  };
+
+  const handleSubjectChange = (event) => {
+    setSubject(event.target.value);
+  };
+
+  // Fetch data when the subject changes
+  useEffect(() => {
+    if (subject) {
+      fetchData();
+    }
+  }, [subject]);
+
   return (
     <div className="chart">
-      <div className="title">{title}</div>
+      <div className="wrapper">
+        <div className="title">{title}</div>
+        <div className="search">
+          <input
+            type="text"
+            placeholder="Search by subject ..."
+            value={subject}
+            onChange={handleSubjectChange}
+          />
+          <SearchOutlinedIcon
+            style={{ cursor: "pointer" }}
+            onClick={fetchData}
+          />
+        </div>
+      </div>
       <ResponsiveContainer width="100%" aspect={aspect}>
         <AreaChart
           width={730}
           height={250}
-          data={data}
+          data={chartData}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <defs>
@@ -34,12 +69,12 @@ const Chart = ({ aspect, title }) => {
               <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" stroke="gray" />
+          <XAxis dataKey="grade" stroke="gray" />
           <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="Total"
+            dataKey="average_points"
             stroke="#8884d8"
             fillOpacity={1}
             fill="url(#total)"

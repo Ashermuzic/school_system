@@ -23,7 +23,7 @@ const Stats = () => {
         <Navbar />
         <div className="charts">
           <Featured />
-          <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
+          <Chart title="Average Points per Subject" aspect={2 / 1} />
         </div>
         <div className="listContainer">
           <div className="wrapper">

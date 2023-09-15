@@ -830,6 +830,47 @@ app.get("/top-scoring-student/:subject", (req, res) => {
   });
 });
 
+// Endpoint to get average points per class for a specific subject
+app.get("/average-points/:subject", (req, res) => {
+  const subject = req.params.subject;
+
+  const sql = `
+    SELECT S.grade AS grade, AVG(G.continuous_assessment + G.midterm + G.final_exam) AS average_points
+    FROM students AS S
+    JOIN grades AS G ON S.id = G.student_id
+    JOIN subjects AS Sub ON G.subject_id = Sub.id
+    WHERE Sub.subject_name = ?
+    GROUP BY S.grade
+    ORDER BY 
+      CASE 
+        WHEN S.grade = '8' THEN 1
+        WHEN S.grade = '9' THEN 2
+        WHEN S.grade = '10' THEN 3
+        WHEN S.grade = '11' THEN 4
+        WHEN S.grade = '12' THEN 5
+        ELSE 6
+      END;
+  `;
+
+  con.query(sql, [subject], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        error:
+          "An error occurred while fetching the average points per class for the specified subject.",
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        message: `Average points data not found for the subject: ${subject}`,
+      });
+    }
+
+    res.status(200).json(results); // Send the average points data
+  });
+});
+
 app.listen(8081, () => {
   console.log("running");
 });
