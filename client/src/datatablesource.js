@@ -53,7 +53,7 @@ export const userColumns = [
 ];
 
 export const gradeColumns = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: "student_id", headerName: "ID", width: 70 },
   {
     field: "name",
     headerName: "Name",
@@ -94,6 +94,32 @@ export const gradeColumns = [
     headerName: "Final Exam",
     width: 110,
     editable: true,
+  },
+];
+
+export const AttendanceColumns = [
+  { field: "student_id", headerName: "ID", width: 70 },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 220,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img
+            className="cellImg"
+            src={`http://localhost:8081/images/${params.row.img}`}
+            alt="avatar"
+          />
+          {params.row.name}
+        </div>
+      );
+    },
+  },
+  {
+    field: "grade",
+    headerName: "Grade",
+    width: 210,
   },
 ];
 

@@ -423,7 +423,7 @@ app.post("/createStudent", upload.single("img"), (req, res) => {
 
 app.post("/createTeacher", upload.single("img"), (req, res) => {
   const sql =
-    "INSERT INTO teachers (`name`,`email`,`phone`,`password`,`subject`,`type`,`img`) VALUES (?)";
+    "INSERT INTO teachers (`name`,`email`,`phone`,`password`,`subject_id`,`type`,`img`) VALUES (?)";
 
   let imageFilename = req.file ? req.file.filename : "no_image_available.png";
 
@@ -432,7 +432,7 @@ app.post("/createTeacher", upload.single("img"), (req, res) => {
     req.body.email,
     req.body.phone,
     req.body.password,
-    req.body.subject,
+    req.body.subject_id,
     req.body.type,
     imageFilename,
   ];
@@ -684,8 +684,64 @@ app.get("/students/teacher/:teacherId", (req, res) => {
       });
     }
     res.status(200).json(data);
-    console.log(data);
   });
+});
+
+//Fetch attendance
+app.get("/attendance/teacher/:teacherId/date/:date", (req, res) => {
+  const teacherId = req.params.teacherId;
+  const date = req.params.date;
+
+  const sql = `
+    SELECT * 
+    FROM attendance 
+    WHERE teacher_id = ? AND date = ?
+  `;
+
+  con.query(sql, [teacherId, date], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        error: "An error occurred while fetching attendance records.",
+      });
+    }
+    res.status(200).json(result);
+  });
+});
+
+// Create a new attendance record
+app.post("/attendance", (req, res) => {
+  const { teacher_id, student_id, date, status } = req.body;
+  console.log(req.body);
+  // Check for required fields
+  if (!teacher_id || !student_id || !date || !status) {
+    return res.status(400).json({
+      error:
+        "Required fields (teacher_id, student_id, date, status) are missing.",
+    });
+  }
+
+  // Insert the attendance record into your database
+  const sql = `
+    INSERT INTO attendance (teacher_id, student_id, date, status)
+    VALUES (?, ?, ?, ?)
+  `;
+
+  con.query(
+    sql,
+    [teacher_id, student_id, date, status],
+    function (err, result) {
+      if (err) {
+        console.error(err);
+        return res
+          .status(500)
+          .json({ error: "An error occurred while inserting attendance." });
+      }
+      res
+        .status(200)
+        .json({ message: "Attendance record inserted successfully" });
+    }
+  );
 });
 
 app.listen(8081, () => {

@@ -11,6 +11,7 @@ import NewTeacher from "./pages/new/NewTeacher";
 import TeacherList from "./pages/list/TeacherList";
 import AdminList from "./pages/list/AdminList";
 import GradeList from "./pages/list/GradeList";
+import AttendanceList from "./pages/list/AttendanceList";
 import SingleTeacher from "./pages/single/SingleTeacher";
 import SingleAdmin from "./pages/single/SingleAdmin";
 import EditStudent from "./pages/edit/EditStudent";
@@ -20,6 +21,7 @@ import Write from "./pages/write/Write";
 import AttachFile from "./pages/attach/AttachFile";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
+import Attendance from "./components/datatable/Attendance";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -85,6 +87,9 @@ function App() {
           </Route>
           <Route path="myStudents">
             <Route index element={<GradeList />} />
+          </Route>
+          <Route path="attendance">
+            <Route index element={<AttendanceList />} />
           </Route>
         </Routes>
       </BrowserRouter>
