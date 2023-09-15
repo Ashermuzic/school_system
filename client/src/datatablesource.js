@@ -97,31 +97,31 @@ export const gradeColumns = [
   },
 ];
 
-export const AttendanceColumns = [
-  { field: "student_id", headerName: "ID", width: 70 },
-  {
-    field: "name",
-    headerName: "Name",
-    width: 220,
-    renderCell: (params) => {
-      return (
-        <div className="cellWithImg">
-          <img
-            className="cellImg"
-            src={`http://localhost:8081/images/${params.row.img}`}
-            alt="avatar"
-          />
-          {params.row.name}
-        </div>
-      );
-    },
-  },
-  {
-    field: "grade",
-    headerName: "Grade",
-    width: 210,
-  },
-];
+// export const AttendanceColumns = [
+//   { field: "student_id", headerName: "ID", width: 70 },
+//   {
+//     field: "name",
+//     headerName: "Name",
+//     width: 220,
+//     renderCell: (params) => {
+//       return (
+//         <div className="cellWithImg">
+//           <img
+//             className="cellImg"
+//             src={`http://localhost:8081/images/${params.row.img}`}
+//             alt="avatar"
+//           />
+//           {params.row.name}
+//         </div>
+//       );
+//     },
+//   },
+//   {
+//     field: "grade",
+//     headerName: "Grade",
+//     width: 210,
+//   },
+// ];
 
 export const TeacherColumns = [
   { field: "id", headerName: "ID", width: 70 },

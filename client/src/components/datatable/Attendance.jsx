@@ -1,12 +1,16 @@
 import "./datatable.scss";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { AuthContext } from "../../context/authContext"; // Import your AuthContext
+import { AuthContext } from "../../context/authContext";
+import { DataGrid } from "@mui/x-data-grid";
 
 const Attendance = () => {
   const [students, setStudents] = useState([]);
   const [attendanceData, setAttendanceData] = useState([]);
-  const { currentTeacherId } = useContext(AuthContext); // Get the teacherId from AuthContext
+  const { currentTeacherId } = useContext(AuthContext);
+
+  // Create state variables to track the selected status for each student
+  const [selectedStatus, setSelectedStatus] = useState({});
 
   useEffect(() => {
     // Fetch the students' data when the component mounts
@@ -20,23 +24,24 @@ const Attendance = () => {
             status: "", // Initialize status as empty
           }));
           setAttendanceData(initialAttendanceData);
-          console.table(initialAttendanceData);
           setStudents(res.data);
         } else {
           console.error("Error fetching students' data.");
         }
       });
-  }, []);
+  }, [currentTeacherId]);
 
   const handleAttendanceChange = (studentId, status) => {
-    console.log("Updating attendance for studentId:", studentId);
-    console.log("New status:", status);
+    // Update the selected status state variable for the given student
+    setSelectedStatus((prevSelectedStatus) => ({
+      ...prevSelectedStatus,
+      [studentId]: status,
+    }));
 
     const updatedAttendance = attendanceData.map((student) =>
       student.student_id === studentId ? { ...student, status } : student
     );
     setAttendanceData(updatedAttendance);
-    console.table(updatedAttendance);
   };
 
   const handleAttendanceSubmit = () => {
@@ -48,8 +53,6 @@ const Attendance = () => {
         date: new Date().toISOString().slice(0, 10),
         status: student.status,
       };
-
-      console.table(formattedAttendanceData);
 
       axios
         .post("http://localhost:8081/attendance", formattedAttendanceData, {
@@ -70,54 +73,115 @@ const Attendance = () => {
     });
   };
 
+  const columns = [
+    { field: "id", headerName: "ID", width: 70 },
+    {
+      field: "name",
+      headerName: "Student Name",
+      width: 260,
+      renderCell: (params) => {
+        return (
+          <div className="cellWithImg">
+            <img
+              className="cellImg"
+              src={`http://localhost:8081/images/${params.row.img}`}
+              alt="avatar"
+            />
+            {params.row.name}
+          </div>
+        );
+      },
+    },
+    {
+      field: "grade",
+      headerName: "Grade",
+      width: 130,
+    },
+    {
+      field: "status",
+      headerName: "Attendance Status",
+      flex: 1,
+      renderCell: (params) => {
+        const studentId = params.row.student_id;
+
+        return (
+          <div style={{ display: "flex" }}>
+            <label
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginRight: "20px",
+              }}
+            >
+              Present
+              <input
+                type="checkbox"
+                style={{ marginLeft: "10px" }}
+                checked={selectedStatus[studentId] === "present"}
+                onChange={() => handleAttendanceChange(studentId, "present")}
+              />
+            </label>
+            <label
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginRight: "20px",
+              }}
+            >
+              Absent
+              <input
+                type="checkbox"
+                style={{ marginLeft: "10px" }}
+                checked={selectedStatus[studentId] === "absent"}
+                onChange={() => handleAttendanceChange(studentId, "absent")}
+              />
+            </label>
+          </div>
+        );
+      },
+    },
+  ];
+
   return (
-    <div className="attendance-container">
-      <div style={{ display: "flex", alignItems: "flex-end" }}>
-        <h2>Mark Attendance</h2> <p>{new Date().toISOString().slice(0, 10)}</p>
+    <div className="datatable">
+      <div className="datatableTitle">
+        Mark Attendance{" "}
+        <span style={{ fontSize: "17px" }}>
+          {new Date().toISOString().slice(0, 10)}
+        </span>
       </div>
 
-      <table className="attendance-table">
-        <thead>
-          <tr>
-            <th>Student Name</th>
-            <th>Attendance Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.map((student) => (
-            <tr key={student.id}>
-              <td>{student.name}</td>
-              <td>
-                <label>
-                  Present
-                  <input
-                    type="checkbox"
-                    name={`attendance-${student.student_id}-present`}
-                    value="present"
-                    onChange={() =>
-                      handleAttendanceChange(student.student_id, "present")
-                    }
-                  />
-                </label>
-                <label>
-                  Absent
-                  <input
-                    type="checkbox"
-                    name={`attendance-${student.student_id}-absent`}
-                    value="absent"
-                    onChange={() =>
-                      handleAttendanceChange(student.student_id, "absent")
-                    }
-                  />
-                </label>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <button className="attendance-submit" onClick={handleAttendanceSubmit}>
-        Submit
+      <div style={{ height: 400, width: "100%" }}>
+        <DataGrid
+          rows={students}
+          columns={columns}
+          pageSize={10}
+          checkboxSelection
+        />
+      </div>
+
+      <button
+        style={{
+          marginTop: "20px",
+          padding: "7px 15px",
+          background: "#394dffe8",
+          border: "none",
+          color: "#fff",
+          boxShadow: "2px 2px 3px #444",
+        }}
+        className="attendance-submit"
+        onClick={handleAttendanceSubmit}
+      >
+        Submit Attendance
       </button>
+      <style>
+        {`
+          button:active {
+            transform: translateY(1px);
+            box-shadow: 1px 1px 3px #444;
+          }
+        `}
+      </style>
     </div>
   );
 };
