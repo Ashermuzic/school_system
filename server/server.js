@@ -796,6 +796,40 @@ app.get("/teacher/search", (req, res) => {
   });
 });
 
+// Endpoint to get the top-scoring students for a specific subject
+app.get("/top-scoring-student/:subject", (req, res) => {
+  const subject = req.params.subject;
+
+  const sql = `
+    SELECT S.id AS student_id, S.name AS student_name, S.grade, S.sex, S.age, S.img AS student_img, Sub.subject_name, SUM(G.continuous_assessment + G.midterm + G.final_exam) AS total_score
+    FROM students AS S
+    JOIN grades AS G ON S.id = G.student_id
+    JOIN subjects AS Sub ON G.subject_id = Sub.id
+    WHERE Sub.subject_name = ?
+    GROUP BY S.id, S.name, S.grade, S.sex, S.age, S.img, Sub.subject_name
+    ORDER BY total_score DESC
+    LIMIT 5;
+  `;
+
+  con.query(sql, [subject], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        error:
+          "An error occurred while fetching the top-scoring students for the specified subject.",
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        message: `Top-scoring students not found for the subject: ${subject}`,
+      });
+    }
+
+    res.status(200).json(results); // Send the top-scoring students' data
+  });
+});
+
 app.listen(8081, () => {
   console.log("running");
 });
