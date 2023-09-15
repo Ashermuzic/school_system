@@ -65,6 +65,13 @@ const Sidebar = () => {
             </li>
           </Link>
 
+          <Link to="/adminAttendanceView" style={{ textDecoration: "none" }}>
+            <li>
+              <InsertChartIcon className="icon" />
+              <span>Admin Attendance</span>
+            </li>
+          </Link>
+
           <p className="title">SERVICE</p>
 
           <Link to="/write" style={{ textDecoration: "none" }}>

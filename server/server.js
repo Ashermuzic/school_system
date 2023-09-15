@@ -768,6 +768,34 @@ app.get("/attendance/:teacherId", (req, res) => {
   });
 });
 
+// Teacher search by name
+app.get("/teacher/search", (req, res) => {
+  const teacherName = req.query.name;
+
+  // Query the database to search for a teacher by name
+  const sql = `
+    SELECT id
+    FROM teachers
+    WHERE name = ?;
+  `;
+
+  con.query(sql, [teacherName], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while searching for the teacher." });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Teacher not found." });
+    }
+
+    // Return the teacher's ID if found
+    res.status(200).json({ id: results[0].id });
+  });
+});
+
 app.listen(8081, () => {
   console.log("running");
 });
