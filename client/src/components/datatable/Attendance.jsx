@@ -74,7 +74,7 @@ const Attendance = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "student_id", headerName: "ID", width: 70 },
     {
       field: "name",
       headerName: "Student Name",

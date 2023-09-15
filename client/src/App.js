@@ -12,6 +12,7 @@ import TeacherList from "./pages/list/TeacherList";
 import AdminList from "./pages/list/AdminList";
 import GradeList from "./pages/list/GradeList";
 import AttendanceList from "./pages/list/AttendanceList";
+import AttendanceViewList from "./pages/list/AttendanceViewList";
 import SingleTeacher from "./pages/single/SingleTeacher";
 import SingleAdmin from "./pages/single/SingleAdmin";
 import EditStudent from "./pages/edit/EditStudent";
@@ -90,6 +91,9 @@ function App() {
           </Route>
           <Route path="attendance">
             <Route index element={<AttendanceList />} />
+          </Route>
+          <Route path="attendanceView">
+            <Route index element={<AttendanceViewList />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -123,6 +123,32 @@ export const gradeColumns = [
 //   },
 // ];
 
+export const AttendanceViewColumns = [
+  { field: "student_id", headerName: "ID", width: 70 },
+  {
+    field: "student_name",
+    headerName: "Name",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img
+            className="cellImg"
+            src={`http://localhost:8081/images/${params.row.student_img}`}
+            alt="avatar"
+          />
+          {params.row.student_name}
+        </div>
+      );
+    },
+  },
+  {
+    field: "formatted_date",
+    headerName: "Date",
+    width: 230,
+  },
+];
+
 export const TeacherColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {

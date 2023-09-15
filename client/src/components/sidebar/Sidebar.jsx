@@ -102,6 +102,13 @@ const Sidebar = () => {
             </li>
           </Link>
 
+          <Link to="/attendanceView" style={{ textDecoration: "none" }}>
+            <li>
+              <PersonOutlineIcon className="icon" />
+              <span>Attendance Details</span>
+            </li>
+          </Link>
+
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />

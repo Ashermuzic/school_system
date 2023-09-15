@@ -1,18 +1,18 @@
 import "./list.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Attendance from "../../components/datatable/Attendance";
+import AttendanceViewTable from "../../components/datatable/AttendanceViewTable";
 
-const AttendanceList = () => {
+const AttendanceViewList = () => {
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <Attendance />
+        <AttendanceViewTable />
       </div>
     </div>
   );
 };
 
-export default AttendanceList;
+export default AttendanceViewList;

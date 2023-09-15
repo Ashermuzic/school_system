@@ -744,6 +744,30 @@ app.post("/attendance", (req, res) => {
   );
 });
 
+// Endpoint to get attendance records for a specific teacher
+app.get("/attendance/:teacherId", (req, res) => {
+  const teacherId = req.params.teacherId;
+
+  // Query the database to retrieve attendance records for the specific teacher
+  const sql = `
+    SELECT A.id AS id, S.id AS student_id, S.name AS student_name, S.img AS student_img, DATE_FORMAT(A.date, '%d/%m/%y') AS formatted_date, A.status
+    FROM attendance AS A
+    JOIN students AS S ON A.student_id = S.id
+    WHERE A.teacher_id = ?
+    ORDER BY A.date DESC;
+  `;
+
+  con.query(sql, [teacherId], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        error: "An error occurred while fetching attendance records.",
+      });
+    }
+    res.status(200).json(results);
+  });
+});
+
 app.listen(8081, () => {
   console.log("running");
 });
