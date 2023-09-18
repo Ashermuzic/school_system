@@ -5,9 +5,12 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const Widget = ({ type, amount, diff }) => {
   let data;
+  const { currentUserRole, logout } = useContext(AuthContext);
 
   // temporary
   // const amount = 101;
@@ -84,13 +87,15 @@ const Widget = ({ type, amount, diff }) => {
         <span className="counter">
           {data.isMoney && "$"} {amount}
         </span>
-        <Link
-          to={linkTo}
-          style={{ textDecoration: "none", color: "#666" }}
-          className="link"
-        >
-          {data.link}
-        </Link>
+        {currentUserRole === "admin" && (
+          <Link
+            to={linkTo}
+            style={{ textDecoration: "none", color: "#666" }}
+            className="link"
+          >
+            {data.link}
+          </Link>
+        )}
       </div>
       <div className="right">
         <div className="percentage positive">

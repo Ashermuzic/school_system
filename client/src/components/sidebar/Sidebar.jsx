@@ -25,7 +25,10 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         <Link to="/dashboard" style={{ textDecoration: "none" }}>
-          <span className="logo">Asher admin</span>
+          <span className="logo">
+            {currentUserRole.charAt(0).toUpperCase() + currentUserRole.slice(1)}{" "}
+            dashboard
+          </span>
         </Link>
       </div>
       <hr />
@@ -45,77 +48,96 @@ const Sidebar = () => {
               <span>Admins</span>
             </li>
           </Link>
-          <Link to="/students" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Students</span>
-            </li>
-          </Link>
-          <Link to="/teachers" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Teachers</span>
-            </li>
-          </Link>
-          <p className="title">USEFUL</p>
-          <Link to="/stats" style={{ textDecoration: "none" }}>
-            <li>
-              <InsertChartIcon className="icon" />
-              <span>Stats</span>
-            </li>
-          </Link>
+          {currentUserRole === "admin" && (
+            <div>
+              <Link to="/students" style={{ textDecoration: "none" }}>
+                <li>
+                  <PersonOutlineIcon className="icon" />
+                  <span>Students</span>
+                </li>
+              </Link>
+              <Link to="/teachers" style={{ textDecoration: "none" }}>
+                <li>
+                  <PersonOutlineIcon className="icon" />
+                  <span>Teachers</span>
+                </li>
+              </Link>
+            </div>
+          )}
 
-          <Link to="/adminAttendanceView" style={{ textDecoration: "none" }}>
-            <li>
-              <InsertChartIcon className="icon" />
-              <span>Admin Attendance</span>
-            </li>
-          </Link>
+          {currentUserRole === "admin" && (
+            <div>
+              <p className="title">USEFUL</p>
+              <Link to="/stats" style={{ textDecoration: "none" }}>
+                <li>
+                  <InsertChartIcon className="icon" />
+                  <span>Stats</span>
+                </li>
+              </Link>
+
+              <Link
+                to="/adminAttendanceView"
+                style={{ textDecoration: "none" }}
+              >
+                <li>
+                  <InsertChartIcon className="icon" />
+                  <span>Admin Attendance</span>
+                </li>
+              </Link>
+            </div>
+          )}
 
           <p className="title">SERVICE</p>
 
-          <Link to="/write" style={{ textDecoration: "none" }}>
-            <li>
-              <ComputerOutlinedIcon className="icon" />
-              <span>Publish News</span>
-            </li>
-          </Link>
+          {currentUserRole === "admin" && (
+            <Link to="/write" style={{ textDecoration: "none" }}>
+              <li>
+                <ComputerOutlinedIcon className="icon" />
+                <span>Publish News</span>
+              </li>
+            </Link>
+          )}
 
-          <Link to="/attachFile" style={{ textDecoration: "none" }}>
-            <li>
-              <LibraryBooksOutlinedIcon className="icon" />
-              <span>Attach files</span>
-            </li>
-          </Link>
+          {currentUserRole === "teacher" && (
+            <Link to="/attachFile" style={{ textDecoration: "none" }}>
+              <li>
+                <LibraryBooksOutlinedIcon className="icon" />
+                <span>Attach files</span>
+              </li>
+            </Link>
+          )}
 
           <li>
             <SettingsApplicationsIcon className="icon" />
             <span>Settings</span>
           </li>
 
-          <p className="title">STUDENTS</p>
+          {currentUserRole === "teacher" && (
+            <div>
+              <p className="title">STUDENTS</p>
 
-          <Link to="/myStudents" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>My Students</span>
-            </li>
-          </Link>
+              <Link to="/myStudents" style={{ textDecoration: "none" }}>
+                <li>
+                  <PersonOutlineIcon className="icon" />
+                  <span>My Students</span>
+                </li>
+              </Link>
 
-          <Link to="/attendance" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Attendance</span>
-            </li>
-          </Link>
+              <Link to="/attendance" style={{ textDecoration: "none" }}>
+                <li>
+                  <PersonOutlineIcon className="icon" />
+                  <span>Attendance</span>
+                </li>
+              </Link>
 
-          <Link to="/attendanceView" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Attendance Details</span>
-            </li>
-          </Link>
-
+              <Link to="/attendanceView" style={{ textDecoration: "none" }}>
+                <li>
+                  <PersonOutlineIcon className="icon" />
+                  <span>Attendance Details</span>
+                </li>
+              </Link>
+            </div>
+          )}
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />

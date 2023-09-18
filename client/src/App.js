@@ -27,7 +27,7 @@ import Attendance from "./components/datatable/Attendance";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
-  const { currentUserRole } = useContext(AuthContext);
+  const { currentUserRole, currentUser } = useContext(AuthContext);
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
@@ -35,70 +35,103 @@ function App() {
         <Routes>
           {/* Set the login page as the default route */}
           <Route path="/" element={<Login />} />
-          <Route path="dashboard" element={<Home />} />
-          <Route path="students">
-            <Route index element={<List />} />
-            <Route path=":studentId" element={<Single />} />
-            <Route
-              path="new"
-              element={
-                <NewStudent inputs={userInputs} title="Add New Student" />
-              }
-            />
-            <Route
-              path="edit/:id"
-              element={
-                <EditStudent inputs={userInputs} title="Edit The Student" />
-              }
-            />
-          </Route>
-          <Route path="teachers">
-            <Route index element={<TeacherList />} />
-            <Route path=":teacherId" element={<SingleTeacher />} />
-            <Route
-              path="new"
-              element={
-                <NewTeacher inputs={productInputs} title="Add New Teacher" />
-              }
-            />
-            <Route
-              path="edit/:id"
-              element={
-                <EditTeacher inputs={productInputs} title="Edit The Teacher" />
-              }
-            />
-          </Route>
-          <Route path="admins">
-            <Route index element={<AdminList />} />
-            <Route path=":adminId" element={<SingleAdmin />} />
-            <Route
-              path="new"
-              element={
-                <NewStudent inputs={productInputs} title="Add New Product" />
-              }
-            />
-          </Route>
-          <Route path="stats">
-            <Route index element={<Stats />} />
-          </Route>
-          <Route path="write">
-            <Route index element={<Write />} />
-          </Route>
-          <Route path="attachFile">
-            <Route index element={<AttachFile />} />
-          </Route>
-          <Route path="myStudents">
-            <Route index element={<GradeList />} />
-          </Route>
-          <Route path="attendance">
-            <Route index element={<AttendanceList />} />
-          </Route>
-          <Route path="attendanceView">
-            <Route index element={<AttendanceViewList />} />
-          </Route>
-          <Route path="adminAttendanceView">
-            <Route index element={<AdminAttendanceViewList />} />
-          </Route>
+          {currentUser && <Route path="dashboard" element={<Home />} />}
+
+          {currentUser && (
+            <Route path="students">
+              <Route index element={<List />} />
+              <Route path=":studentId" element={<Single />} />
+              <Route
+                path="new"
+                element={
+                  <NewStudent inputs={userInputs} title="Add New Student" />
+                }
+              />
+              <Route
+                path="edit/:id"
+                element={
+                  <EditStudent inputs={userInputs} title="Edit The Student" />
+                }
+              />
+            </Route>
+          )}
+
+          {currentUser && (
+            <Route path="teachers">
+              <Route index element={<TeacherList />} />
+              <Route path=":teacherId" element={<SingleTeacher />} />
+              <Route
+                path="new"
+                element={
+                  <NewTeacher inputs={productInputs} title="Add New Teacher" />
+                }
+              />
+              <Route
+                path="edit/:id"
+                element={
+                  <EditTeacher
+                    inputs={productInputs}
+                    title="Edit The Teacher"
+                  />
+                }
+              />
+            </Route>
+          )}
+
+          {currentUser && (
+            <Route path="admins">
+              <Route index element={<AdminList />} />
+              <Route path=":adminId" element={<SingleAdmin />} />
+              <Route
+                path="new"
+                element={
+                  <NewStudent inputs={productInputs} title="Add New Product" />
+                }
+              />
+            </Route>
+          )}
+
+          {currentUser && (
+            <Route path="stats">
+              <Route index element={<Stats />} />
+            </Route>
+          )}
+
+          {currentUser && (
+            <Route path="write">
+              <Route index element={<Write />} />
+            </Route>
+          )}
+
+          {currentUser && (
+            <Route path="attachFile">
+              <Route index element={<AttachFile />} />
+            </Route>
+          )}
+
+          {currentUser && (
+            <Route path="myStudents">
+              <Route index element={<GradeList />} />
+            </Route>
+          )}
+
+          {currentUser && (
+            <Route path="attendance">
+              <Route index element={<AttendanceList />} />
+            </Route>
+          )}
+
+          {currentUser && (
+            <Route path="attendanceView">
+              <Route index element={<AttendanceViewList />} />
+            </Route>
+          )}
+
+          {currentUser && (
+            <Route path="adminAttendanceView">
+              <Route index element={<AdminAttendanceViewList />} />
+            </Route>
+          )}
         </Routes>
       </BrowserRouter>
     </div>

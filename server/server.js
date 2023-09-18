@@ -341,7 +341,8 @@ app.post("/loginAdmin", (req, res) => {
 
   con.query(q, [req.body.name, req.body.password], (err, data) => {
     if (err) return res.status(500).json(err);
-    if (data.length === 0) return res.status(404).json("User not found!");
+    if (data.length === 0)
+      return res.status(404).json("Incorrect username or password !");
 
     // The query will return a row only if the username and password match.
     // No further password processing is needed.
@@ -368,7 +369,8 @@ app.post("/loginTeacher", (req, res) => {
 
   con.query(q, [req.body.name, req.body.password], (err, data) => {
     if (err) return res.status(500).json(err);
-    if (data.length === 0) return res.status(404).json("User not found!");
+    if (data.length === 0)
+      return res.status(404).json("Incorrect username or password !");
 
     // The query will return a row only if the username and password match.
     // No further password processing is needed.

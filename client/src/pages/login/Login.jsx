@@ -129,6 +129,7 @@ const Login = () => {
             <div className="loginContent">
               <div className="twoCards push">
                 <h1>Login</h1>
+                <p className="error">{err}</p>
                 <input
                   type="text"
                   placeholder="Username"
@@ -147,6 +148,7 @@ const Login = () => {
               </div>
               <div className={`twoCards dis-none ${moveForm ? "margin" : ""}`}>
                 <h1>Admin</h1>
+                <p className="error">{err}</p>
                 <input
                   type="text"
                   placeholder="Username"

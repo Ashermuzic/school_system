@@ -37,6 +37,7 @@ export const AuthContextProvider = ({ children }) => {
     await axios.get("http://localhost:8081/logout");
     setCurrentUserRole(null);
     setCurrentUser(null);
+    setCurrentImg(null);
   };
 
   useEffect(() => {
