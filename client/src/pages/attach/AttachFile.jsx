@@ -8,11 +8,13 @@ import moment from "moment";
 import "./attach.css";
 import { AuthContext } from "../../context/authContext";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Link } from "react-router-dom";
 
 const Write = () => {
   const [value, setValue] = useState("");
   const { currentUser } = useContext(AuthContext);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isPostSuccessful, setIsPostSuccessful] = useState(false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -37,6 +39,7 @@ const Write = () => {
 
       setValue("");
       setSelectedFile(null);
+      setIsPostSuccessful(true);
     } catch (error) {
       console.error("Error publishing post:", error);
     }
@@ -70,6 +73,14 @@ const Write = () => {
             style={{ display: "none" }}
             onChange={handleFileChange}
           />
+          {isPostSuccessful && (
+            <div className="successMessage">
+              <h3>File posted successfully!!</h3>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <p>{`( view post )`}</p>
+              </Link>
+            </div>
+          )}
           <button onClick={handlePublish}>Publish</button>
         </div>
       </div>

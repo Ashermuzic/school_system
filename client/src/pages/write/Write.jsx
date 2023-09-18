@@ -7,10 +7,12 @@ import axios from "axios";
 import moment from "moment";
 import "./write.css";
 import { AuthContext } from "../../context/authContext";
+import { Link } from "react-router-dom";
 
 const Write = () => {
   const [value, setValue] = useState("");
   const { currentUser } = useContext(AuthContext);
+  const [isPostSuccessful, setIsPostSuccessful] = useState(false);
 
   const handlePublish = async () => {
     try {
@@ -28,6 +30,7 @@ const Write = () => {
 
       // Optionally, you can clear the editor after successful submission
       setValue("");
+      setIsPostSuccessful(true);
 
       // You can also redirect the user or show a success message here
     } catch (error) {
@@ -54,7 +57,16 @@ const Write = () => {
           />
         </div>
         <div className="buttonContainer">
-          <div></div>
+          <div>
+            {isPostSuccessful && (
+              <div className="successMessage">
+                <h3>Message posted successfully!!</h3>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <p>{`( view post )`}</p>
+                </Link>
+              </div>
+            )}
+          </div>
           <button onClick={handlePublish}>Publish</button>
         </div>
       </div>

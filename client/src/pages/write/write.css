@@ -24,6 +24,32 @@
   justify-content: flex-end;
 }
 
+.successMessage {
+  display: flex;
+  align-items: center;
+  /* background: red; */
+  gap: 20px;
+}
+
+.successMessage h3 {
+  color: rgba(0, 128, 0, 0.925);
+  font-size: 16px;
+  font-weight: 400;
+  background-color: rgba(0, 128, 0, 0.11);
+  /* display: none; */
+}
+
+.successMessage p {
+  font-size: 14px;
+  color: green;
+  background-color: rgba(0, 128, 0, 0.11);
+  cursor: pointer;
+}
+
+.successMessage p:hover {
+  text-decoration: underline;
+}
+
 .buttonContainer button {
   padding: 5px 15px;
   background: #394dffe8;
