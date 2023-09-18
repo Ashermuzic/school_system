@@ -15,13 +15,14 @@ export const AuthContextProvider = ({ children }) => {
 
   const [currentUserRole, setCurrentUserRole] = useState(initialUser.role);
   const [currentUser, setCurrentUser] = useState(initialUser.name);
-  const [currentTeacherId, setCurrentTeacherId] = useState(initialUser.id);
+  const [currentUserId, setCurrentUserId] = useState(initialUser.id);
   const [currentImg, setCurrentImg] = useState(initialUser.img);
 
   const loginAdmin = async (inputs) => {
     const res = await axios.post("http://localhost:8081/loginAdmin", inputs);
     setCurrentUserRole(res.data.role);
     setCurrentUser(res.data.name);
+    setCurrentUserId(res.data.id);
     setCurrentImg(res.data.img);
   };
 
@@ -29,7 +30,7 @@ export const AuthContextProvider = ({ children }) => {
     const res = await axios.post("http://localhost:8081/loginTeacher", inputs);
     setCurrentUserRole(res.data.role);
     setCurrentUser(res.data.name);
-    setCurrentTeacherId(res.data.id);
+    setCurrentUserId(res.data.id);
     setCurrentImg(res.data.img);
   };
 
@@ -47,18 +48,18 @@ export const AuthContextProvider = ({ children }) => {
       JSON.stringify({
         role: currentUserRole,
         name: currentUser,
-        id: currentTeacherId,
+        id: currentUserId,
         img: currentImg,
       })
     );
-  }, [currentUserRole, currentUser, currentTeacherId, currentImg]);
+  }, [currentUserRole, currentUser, currentUserId, currentImg]);
 
   return (
     <AuthContext.Provider
       value={{
         currentUserRole,
         currentUser,
-        currentTeacherId,
+        currentUserId,
         currentImg,
         loginAdmin,
         loginTeacher,

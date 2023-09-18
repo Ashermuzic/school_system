@@ -379,8 +379,6 @@ app.post("/loginTeacher", (req, res) => {
 
     const { password, ...other } = data[0];
 
-    console.log(token);
-
     res
       .cookie("access_token", token, {
         httpOnly: true,

@@ -24,6 +24,7 @@ import AttachFile from "./pages/attach/AttachFile";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
 import Attendance from "./components/datatable/Attendance";
+import ProfileList from "./pages/list/ProfileList";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -130,6 +131,12 @@ function App() {
           {currentUser && (
             <Route path="adminAttendanceView">
               <Route index element={<AdminAttendanceViewList />} />
+            </Route>
+          )}
+
+          {currentUser && (
+            <Route path="profile">
+              <Route index element={<ProfileList />} />
             </Route>
           )}
         </Routes>
