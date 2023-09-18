@@ -6,6 +6,7 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
+import SingleTranscript from "./pages/single/SingleTranscript";
 import NewStudent from "./pages/new/NewStudent";
 import NewTeacher from "./pages/new/NewTeacher";
 import TeacherList from "./pages/list/TeacherList";
@@ -42,6 +43,7 @@ function App() {
             <Route path="students">
               <Route index element={<List />} />
               <Route path=":studentId" element={<Single />} />
+
               <Route
                 path="new"
                 element={
@@ -54,6 +56,7 @@ function App() {
                   <EditStudent inputs={userInputs} title="Edit The Student" />
                 }
               />
+              <Route path="view/:id" element={<SingleTranscript />} />
             </Route>
           )}
 

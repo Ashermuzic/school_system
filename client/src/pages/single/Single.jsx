@@ -49,6 +49,9 @@ const Single = () => {
             <Link to={`/students/edit/${studentId}`} className="editButton">
               Edit
             </Link>
+            <Link to={`/students/view/${studentId}`} className="editButton">
+              Transcript
+            </Link>
             <h1 className="title">Information</h1>
             <div className="item">
               <img
