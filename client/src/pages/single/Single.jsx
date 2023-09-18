@@ -82,11 +82,13 @@ const Single = () => {
             </div>
           </div>
           <div className="right">
-            <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
+            <div className="charts">
+              <Chart aspect={3 / 1} title="Educational Performance" />
+            </div>
           </div>
         </div>
         <div className="bottom">
-          <h1 className="title">Last Transactions</h1>
+          <h1 className="title">Subjects in rolled in</h1>
           <List />
         </div>
       </div>
