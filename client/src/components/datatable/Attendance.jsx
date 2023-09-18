@@ -7,7 +7,8 @@ import { DataGrid } from "@mui/x-data-grid";
 const Attendance = () => {
   const [students, setStudents] = useState([]);
   const [attendanceData, setAttendanceData] = useState([]);
-  const { currentTeacherId } = useContext(AuthContext);
+  const { currentUserId } = useContext(AuthContext);
+  const [isPostSuccessful, setIsPostSuccessful] = useState(false);
 
   // Create state variables to track the selected status for each student
   const [selectedStatus, setSelectedStatus] = useState({});
@@ -15,7 +16,7 @@ const Attendance = () => {
   useEffect(() => {
     // Fetch the students' data when the component mounts
     axios
-      .get(`http://localhost:8081/students/teacher/${currentTeacherId}`)
+      .get(`http://localhost:8081/students/teacher/${currentUserId}`)
       .then((res) => {
         if (res.status === 200) {
           // Initialize attendanceData with the student data
@@ -29,7 +30,7 @@ const Attendance = () => {
           console.error("Error fetching students' data.");
         }
       });
-  }, [currentTeacherId]);
+  }, [currentUserId]);
 
   const handleAttendanceChange = (studentId, status) => {
     // Update the selected status state variable for the given student
@@ -48,7 +49,7 @@ const Attendance = () => {
     // Send an API request to update attendance for each student
     attendanceData.forEach((student) => {
       const formattedAttendanceData = {
-        teacher_id: currentTeacherId,
+        teacher_id: currentUserId,
         student_id: student.student_id,
         date: new Date().toISOString().slice(0, 10),
         status: student.status,
@@ -63,6 +64,7 @@ const Attendance = () => {
         .then((res) => {
           if (res.status === 200) {
             console.log("Attendance for student updated successfully.");
+            setIsPostSuccessful(true);
           } else {
             console.error("Error updating attendance for student.");
           }
@@ -159,21 +161,38 @@ const Attendance = () => {
           checkboxSelection
         />
       </div>
-
-      <button
+      <div
         style={{
-          marginTop: "20px",
-          padding: "7px 15px",
-          background: "#394dffe8",
-          border: "none",
-          color: "#fff",
-          boxShadow: "2px 2px 3px #444",
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
         }}
-        className="attendance-submit"
-        onClick={handleAttendanceSubmit}
       >
-        Submit Attendance
-      </button>
+        <button
+          style={{
+            marginTop: "20px",
+            padding: "7px 15px",
+            background: "#394dffe8",
+            border: "none",
+            color: "#fff",
+            boxShadow: "2px 2px 3px #444",
+          }}
+          className="attendance-submit"
+          onClick={handleAttendanceSubmit}
+        >
+          Submit Attendance
+        </button>
+
+        {isPostSuccessful && (
+          <p style={{ background: "rgba(0, 128, 0, 0.11)", color: "green" }}>
+            Attendance for date{" "}
+            <span style={{ textDecoration: "underline" }}>
+              {new Date().toISOString().slice(0, 10)}{" "}
+            </span>
+            updated successfully
+          </p>
+        )}
+      </div>
       <style>
         {`
           button:active {

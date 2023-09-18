@@ -8,13 +8,13 @@ import { AuthContext } from "../../context/authContext";
 
 const GradeTable = () => {
   const [data, setData] = useState([]);
-  const { currentTeacherId } = useContext(AuthContext);
+  const { currentUserId } = useContext(AuthContext);
 
   const passFailThreshold = 60;
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8081/students/teacher/${currentTeacherId}`)
+      .get(`http://localhost:8081/students/teacher/${currentUserId}`)
       .then((res) => {
         if (res.status === 200) {
           // Calculate "Total" and "Pass / Fail" for each student

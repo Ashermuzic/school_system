@@ -6,12 +6,12 @@ import { DataGrid } from "@mui/x-data-grid";
 
 const Attendance = () => {
   const [students, setStudents] = useState([]);
-  const { currentTeacherId } = useContext(AuthContext);
+  const { currentUserId } = useContext(AuthContext);
 
   useEffect(() => {
     // Fetch the students' data when the component mounts
     axios
-      .get(`http://localhost:8081/attendance/${currentTeacherId}`)
+      .get(`http://localhost:8081/attendance/${currentUserId}`)
       .then((res) => {
         if (res.status === 200) {
           setStudents(res.data);
@@ -19,7 +19,7 @@ const Attendance = () => {
           console.error("Error fetching students' data.");
         }
       });
-  }, [currentTeacherId]);
+  }, [currentUserId]);
 
   // Define a function to conditionally style the status cell
   const renderStatusCell = (params) => {
