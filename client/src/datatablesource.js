@@ -97,31 +97,58 @@ export const gradeColumns = [
   },
 ];
 
-// export const AttendanceColumns = [
-//   { field: "student_id", headerName: "ID", width: 70 },
-//   {
-//     field: "name",
-//     headerName: "Name",
-//     width: 220,
-//     renderCell: (params) => {
-//       return (
-//         <div className="cellWithImg">
-//           <img
-//             className="cellImg"
-//             src={`http://localhost:8081/images/${params.row.img}`}
-//             alt="avatar"
-//           />
-//           {params.row.name}
-//         </div>
-//       );
-//     },
-//   },
-//   {
-//     field: "grade",
-//     headerName: "Grade",
-//     width: 210,
-//   },
-// ];
+export const topScoringColumns = [
+  { field: "id", headerName: "Student Id", width: 120 },
+  {
+    field: "student_name",
+    headerName: "Student Name",
+    width: 220,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img
+            className="cellImg"
+            src={`http://localhost:8081/images/${params.row.student_img}`}
+            alt="avatar"
+          />
+          {params.row.student_name}
+        </div>
+      );
+    },
+  },
+  {
+    field: "grade",
+    headerName: "Grade",
+    width: 110,
+  },
+  {
+    field: "sex",
+    headerName: "Sex",
+    width: 120,
+  },
+  {
+    field: "age",
+    headerName: "Age",
+    width: 110,
+  },
+  {
+    field: "total_score",
+    headerName: "Total Point",
+    width: 140,
+  },
+  {
+    field: "subject_name",
+    headerName: "Subject",
+    width: 110,
+    renderCell: (params) => {
+      return (
+        <span className={`cellWithStatus active`}>
+          {params.row.subject_name}
+        </span>
+      );
+    },
+  },
+];
 
 export const AttendanceViewColumns = [
   { field: "student_id", headerName: "ID", width: 70 },

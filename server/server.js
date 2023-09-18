@@ -801,7 +801,7 @@ app.get("/top-scoring-student/:subject", (req, res) => {
   const subject = req.params.subject;
 
   const sql = `
-    SELECT S.id AS student_id, S.name AS student_name, S.grade, S.sex, S.age, S.img AS student_img, Sub.subject_name, SUM(G.continuous_assessment + G.midterm + G.final_exam) AS total_score
+    SELECT S.id AS id, S.name AS student_name, S.grade, S.sex, S.age, S.img AS student_img, Sub.subject_name, SUM(G.continuous_assessment + G.midterm + G.final_exam) AS total_score
     FROM students AS S
     JOIN grades AS G ON S.id = G.student_id
     JOIN subjects AS Sub ON G.subject_id = Sub.id

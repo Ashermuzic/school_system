@@ -3,7 +3,10 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -12,21 +15,17 @@ const Widget = ({ type, amount, diff }) => {
   let data;
   const { currentUserRole, logout } = useContext(AuthContext);
 
-  // temporary
-  // const amount = 101;
-  // const diff = 20;
-
   switch (type) {
     case "students":
       data = {
         title: "Students",
         link: "See all students",
         icon: (
-          <PersonOutlinedIcon
+          <EmojiPeopleOutlinedIcon
             className="icon"
             style={{
-              color: "crimson",
-              backgroundColor: "rgba(255, 0, 0, 0.2)",
+              color: "green",
+              backgroundColor: "rgba(0, 128, 0, 0.2)",
             }}
           />
         ),
@@ -37,7 +36,7 @@ const Widget = ({ type, amount, diff }) => {
         title: "Teachers",
         link: "See all teachers",
         icon: (
-          <ShoppingCartOutlinedIcon
+          <PersonOutlinedIcon
             className="icon"
             style={{
               backgroundColor: "rgba(218, 165, 32, 0.2)",
@@ -52,9 +51,12 @@ const Widget = ({ type, amount, diff }) => {
         title: "Admin",
         link: "See all admins",
         icon: (
-          <MonetizationOnOutlinedIcon
+          <SchoolOutlinedIcon
             className="icon"
-            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
+            style={{
+              backgroundColor: "rgba(255, 0, 0, 0.2)",
+              color: "crimson",
+            }}
           />
         ),
       };
@@ -64,7 +66,7 @@ const Widget = ({ type, amount, diff }) => {
         title: "Total",
         link: "See details",
         icon: (
-          <AccountBalanceWalletOutlinedIcon
+          <MonetizationOnOutlinedIcon
             className="icon"
             style={{
               backgroundColor: "rgba(128, 0, 128, 0.2)",
